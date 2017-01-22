@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react/native';
-import tcomb, { form } from 'tcomb-form-native';
 
 import {
   StyleSheet,
@@ -9,23 +8,8 @@ import {
   View
 } from 'react-native';
 
-const { Form } = form;
-const Word = tcomb.struct({
-  cz: tcomb.String,
-  ru: tcomb.String,
-  archived: tcomb.Boolean
-});
-
 @observer
 export default class PhraseForm extends Component {
-
-  onPress() {
-    const value = this.refs.form.getValue();
-
-    if (value) {
-      console.log(value);
-    }
-  }
 
   render() {
     return (
@@ -33,12 +17,6 @@ export default class PhraseForm extends Component {
         <View style={styles.heading}>
           <Text style={styles.headingText}>CZ Phrasebook</Text>
         </View>
-
-        <Form
-          ref="form"
-          type={Word}
-          options={{ }}
-        />
 
         <TouchableHighlight
           style={styles.button}
