@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Form from './Form.react';
+import Form from './form/Page.react';
 import { Scene, Router } from 'react-native-router-flux';
 
 export default class Phrasebook extends Component {
