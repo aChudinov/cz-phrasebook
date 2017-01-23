@@ -9,11 +9,20 @@ export default observer(({ field }) =>
     </Text>
 
     <Switch {...field.bind()} />
+
+    <Text style={styles.error}>
+      {field.error}
+    </Text>
   </View>
 );
 
 const styles = StyleSheet.create({
   label: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginTop: 10
+  },
+
+  error: {
+    color: '#ff0000'
   }
 });
