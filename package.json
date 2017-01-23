@@ -13,8 +13,9 @@
 		"mobx-react-form": "^1.18.6",
 		"react": "~15.4.0-rc.4",
 		"react-native": "0.40.0",
+		"react-native-multi-select": "^0.1.1",
 		"react-native-router-flux": "^3.37.0",
-		"validatorjs": "^3.11.0"
+		"validatorjs": "git+https://git@github.com/aChudinov/validatorjs.git"
 	},
 	"devDependencies": {
 		"babel-eslint": "^7.1.1",

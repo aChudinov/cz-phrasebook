@@ -9,7 +9,8 @@ const fields = {
   },
   archived: {
     label: 'Archived',
-    rules: 'required|Boolean',
+    rules: 'required|boolean',
+    value: false
   },
   tags: {
     label: 'Tags',
@@ -29,6 +30,7 @@ const tags = [
 
 import MobxReactForm from 'mobx-react-form';
 import validatorjs from 'validatorjs';
+
 
 class PhrasebookForm extends MobxReactForm {
 
