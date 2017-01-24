@@ -1,4 +1,5 @@
 import Switch from '../components/Switch.react';
+import TagInput from '../components/TagInput.react';
 import TextInput from '../components/TextInput.react';
 import React from 'react';
 import { observer } from 'mobx-react/native';
@@ -9,6 +10,7 @@ export default observer(({ form }) =>
     <TextInput field={form.$('cz')} />
     <TextInput field={form.$('ru')} />
     <Switch field={form.$('archived')} />
+    <TagInput field={form.$('tags')} />
 
     <TouchableHighlight
       style={styles.button}

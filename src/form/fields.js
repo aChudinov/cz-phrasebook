@@ -17,22 +17,13 @@ const fields = {
   },
   tags: {
     label: 'Tags',
-    options: tags
+    rules: 'required|array',
+    value: []
   }
 };
 
-const tags = [
-  { value: 'iphone', label: 'iPhone' },
-  { value: 'watch', label: 'Watch' },
-  { value: 'imac', label: 'iMac' },
-  { value: 'macpro', label: 'Mac Pro' },
-  { value: 'macbookair', label: 'MacBook Air' },
-  { value: 'macbookpro', label: 'MacBook Pro' },
-];
-
 import MobxReactForm from 'mobx-react-form';
 import validatorjs from 'validatorjs';
-
 
 class PhrasebookForm extends MobxReactForm {
 
