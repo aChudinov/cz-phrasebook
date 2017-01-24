@@ -1,3 +1,6 @@
+import MobxReactForm from 'mobx-react-form';
+import validatorjs from 'validatorjs';
+
 const fields = {
   cz: {
     label: 'CZ',
@@ -22,11 +25,7 @@ const fields = {
   }
 };
 
-import MobxReactForm from 'mobx-react-form';
-import validatorjs from 'validatorjs';
-
 class PhrasebookForm extends MobxReactForm {
-
   bindings() {
     return {
       input: {
@@ -42,17 +41,6 @@ class PhrasebookForm extends MobxReactForm {
       }
     };
   }
-
-  onSuccess(form) {
-    console.log('Form Values!', form.values());
-  }
-
-  onError(form) {
-    console.log('All form errors', form.errors());
-    form.invalidate('This is a generic error message!');
-  }
 }
 
-const form = new PhrasebookForm({ fields }, { plugins: { dvr: validatorjs } });
-
-export default form;
+export default new PhrasebookForm({ fields }, { plugins: { dvr: validatorjs } });

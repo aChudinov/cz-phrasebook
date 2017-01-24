@@ -5,7 +5,7 @@ import { observer } from 'mobx-react/native';
 import { StyleSheet, Text, View } from 'react-native';
 
 @observer
-export default class PhraseForm extends Component {
+export default class PhraseFormPage extends Component {
 
   render() {
     return (

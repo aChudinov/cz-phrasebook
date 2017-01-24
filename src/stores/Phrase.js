@@ -1,6 +1,6 @@
 import { observable, computed, reaction } from 'mobx';
 import PhraseModel from '../models/Phrase';
-import uid from 'uid';
+// import uid from 'uid';
 
 export default class PhraseStore {
   @observable phrases = [];
@@ -8,12 +8,12 @@ export default class PhraseStore {
   subscribeLocalstorageToStore() {
     reaction(
       () => this.toJS(),
-      phrases => localStorage.setItem('phrases', JSON.stringify({ phrases }))
+      phrases => console.log(phrases)
     );
   }
 
   addPhrase(params) {
-    this.phrases.push(new PhraseModel(this, uid(), params));
+    this.phrases.push(new PhraseModel(this, Math.random(), params));
   }
 
   toJS() {
