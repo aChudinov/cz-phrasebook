@@ -1,29 +1,50 @@
-import { observable, computed, reaction } from 'mobx';
 import PhraseModel from '../models/Phrase';
-// import uid from 'uid';
+import uid from '../lib/uid';
+import { action, observable, reaction } from 'mobx';
+import { Actions } from 'react-native-router-flux';
+import { AsyncStorage } from 'react-native';
 
 export default class PhraseStore {
   @observable phrases = [];
+  @observable pending = false;
+
+  constructor() {
+    // AsyncStorage.clear();
+    this.fetchPhrases().then(() => {
+      this.subscribeLocalstorageToStore();
+    });
+  }
 
   subscribeLocalstorageToStore() {
     reaction(
       () => this.toJS(),
-      phrases => console.log(phrases)
+      async (phrases) => {
+        this.pending = true;
+        await AsyncStorage.setItem('phrases', JSON.stringify(phrases));
+        this.pending = false;
+      }
     );
   }
 
+  @action
+  async fetchPhrases() {
+    this.pending = true;
+
+    const phrases = await AsyncStorage.getItem('phrases');
+
+    this.phrases = (JSON.parse(phrases) || []).map(item => PhraseModel.fromJS(this, item));
+    this.pending = false;
+  }
+
+  @action
   addPhrase(params) {
-    this.phrases.push(new PhraseModel(this, Math.random(), params));
+    const phrase = new PhraseModel(this, uid(), params);
+
+    this.phrases.push(phrase);
+    Actions.list();
   }
 
   toJS() {
     return this.phrases.map(phrase => phrase.toJS());
-  }
-
-  static fromJS(array) {
-    const phraseStore = new PhraseStore();
-    phraseStore.phrases = array.map(item => PhraseModel.fromJS(phraseStore, item));
-
-    return phraseStore;
   }
 }

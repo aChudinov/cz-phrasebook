@@ -16,7 +16,6 @@
 		"react-native-multi-select": "^0.1.1",
 		"react-native-router-flux": "^3.37.0",
 		"react-native-tag-input": "^0.0.13",
-		"uid": "^0.0.2",
 		"validatorjs": "git+https://git@github.com/aChudinov/validatorjs.git"
 	},
 	"devDependencies": {

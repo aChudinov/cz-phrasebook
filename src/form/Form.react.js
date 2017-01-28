@@ -6,30 +6,22 @@ import { autobind } from 'core-decorators';
 import { inject, observer } from 'mobx-react/native';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
-@inject('phraseStore')
+@inject('store')
 @observer
 export default class PhraseForm extends Component {
 
   static propTypes = {
     form: RPT.object.isRequired,
-    phraseStore: RPT.object.isRequired
-  }
-
-  @autobind
-  onSuccess(form) {
-    const { phraseStore } = this.props;
-
-    phraseStore.addPhrase(form.values());
-    console.log('Form Values!', form.values());
+    store: RPT.object.isRequired
   }
 
   @autobind
   onSubmit() {
-    const { form } = this.props;
+    const { form, store } = this.props;
 
     form.submit({
-      onSuccess: this.onSuccess,
-      onError: (errorForm) => { errorForm.invalidate('This is a generic error message!'); },
+      onSuccess: (successForm) => { store.addPhrase(successForm.values()); },
+      onError: (errorForm) => { errorForm.invalidate('This is a generic error message!'); }
     });
   }
 
