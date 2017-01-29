@@ -1,11 +1,12 @@
 import PhraseModel from '../models/Phrase';
 import uid from '../lib/uid';
-import { action, observable, reaction } from 'mobx';
+import { action, computed, observable, reaction, runInAction } from 'mobx';
 import { Actions } from 'react-native-router-flux';
 import { AsyncStorage } from 'react-native';
 
 export default class PhraseStore {
   @observable phrases = [];
+  @observable language = 'cz';
   @observable pending = false;
 
   constructor() {
@@ -26,14 +27,25 @@ export default class PhraseStore {
     );
   }
 
+  @computed get otherLanguage() {
+    return this.language === 'cz' ? 'ru' : 'cz';
+  }
+
+  @action.bound
+  setLanguage(language) {
+    this.language = language;
+  }
+
   @action
   async fetchPhrases() {
     this.pending = true;
 
     const phrases = await AsyncStorage.getItem('phrases');
 
-    this.phrases = (JSON.parse(phrases) || []).map(item => PhraseModel.fromJS(this, item));
-    this.pending = false;
+    runInAction('update after fetching phrases', () => {
+      this.phrases = (JSON.parse(phrases) || []).map(item => PhraseModel.fromJS(this, item));
+      this.pending = false;
+    });
 
     return this.phrases;
   }

@@ -1,5 +1,8 @@
+import formatData from '../lib/formatPhrasesData';
+import ListItem from './Item.react';
 import React, { Component, PropTypes as RPT } from 'react';
 import SectionHeader from './SectionHeader.react';
+import sortPhrases from '../lib/sortPhrases';
 import { inject, observer } from 'mobx-react/native';
 import { ActivityIndicator, ListView, StyleSheet, Text, View } from 'react-native';
 
@@ -23,57 +26,15 @@ export default class PhraseList extends Component {
   }
 
   getSortedPhrases() {
-    const { store: { phrases } } = this.props;
-
-    const sortedPhrases = phrases.sort((a, b) => {
-      if (a.cz < b.cz) return -1;
-      if (a.cz > b.cz) return 1;
-      return 0;
-    });
-
-    const { dataBlob, sectionIds, rowIds } = this.formatData(sortedPhrases);
+    const { store: { phrases, language } } = this.props;
+    const sortedPhrases = sortPhrases(phrases, language);
+    const { dataBlob, sectionIds, rowIds } = formatData(sortedPhrases, language);
 
     return this.dataSource.cloneWithRowsAndSections(dataBlob, sectionIds, rowIds);
   }
 
-  formatData(data) {
-    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-
-    const dataBlob = {};
-    const sectionIds = [];
-    const rowIds = [];
-
-    for (let sectionId = 0; sectionId < alphabet.length; sectionId++) {
-      const currentChar = alphabet[sectionId];
-      const phrases = data.filter(phrase => phrase.cz.toUpperCase().indexOf(currentChar) === 0);
-
-      if (phrases.length > 0) {
-        sectionIds.push(sectionId);
-        dataBlob[sectionId] = { character: currentChar };
-        rowIds.push([]);
-
-        for (let i = 0; i < phrases.length; i++) {
-          const rowId = `${sectionId}:${i}`;
-
-          rowIds[rowIds.length - 1].push(rowId);
-          dataBlob[rowId] = phrases[i];
-        }
-      }
-    }
-
-    return { dataBlob, sectionIds, rowIds };
-  }
-
-  renderPhrase(phrase) {
-    return (
-      <View key={phrase.id} style={styles.container}>
-        <Text>{phrase.cz} — {phrase.ru}</Text>
-      </View>
-    );
-  }
-
   render() {
-    const { store: { pending, phrases } } = this.props;
+    const { store: { language, otherLanguage, pending, phrases } } = this.props;
 
     if (pending || !phrases) {
       return <ActivityIndicator animating size="large" />;
@@ -88,7 +49,7 @@ export default class PhraseList extends Component {
         <ListView
           dataSource={this.getSortedPhrases()}
           enableEmptySections
-          renderRow={this.renderPhrase}
+          renderRow={phrase => <ListItem language={language} otherLanguage={otherLanguage} phrase={phrase} />}
           renderSectionHeader={sectionData => <SectionHeader {...sectionData} />}
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
         />
@@ -98,13 +59,6 @@ export default class PhraseList extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 12,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-
   separator: {
     flex: 1,
     height: StyleSheet.hairlineWidth,

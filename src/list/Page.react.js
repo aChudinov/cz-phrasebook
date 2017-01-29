@@ -3,7 +3,7 @@ import List from './List.react';
 import React from 'react';
 
 export default () => (
-  <CommonLayout hasAddButton>
+  <CommonLayout hasAddButton hasLanguageSwitcher>
     <List />
   </CommonLayout>
 );

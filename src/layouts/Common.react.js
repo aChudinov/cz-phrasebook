@@ -1,31 +1,49 @@
 import React, { Component, PropTypes as RPT } from 'react';
 import { Actions } from 'react-native-router-flux';
+import { inject, observer } from 'mobx-react/native';
 import { StyleSheet, Text, View } from 'react-native';
 
+@inject('store')
+@observer
 export default class CommonLayout extends Component {
 
   static propTypes = {
     children: RPT.node.isRequired,
     hasAddButton: RPT.bool,
-    hasBackButton: RPT.bool
+    hasBackButton: RPT.bool,
+    hasLanguageSwitcher: RPT.bool,
+    store: RPT.object.isRequired
   }
 
   static defaultProps = {
     hasAddButton: false,
-    hasBackButton: false
+    hasBackButton: false,
+    hasLanguageSwitcher: false
   }
 
   render() {
-    const { children, hasAddButton, hasBackButton } = this.props;
+    const { children, hasAddButton, hasBackButton, hasLanguageSwitcher,
+      store: { otherLanguage, setLanguage }
+    } = this.props;
 
     return (
       <View style={{ flex: 1 }}>
         <View style={styles.heading}>
-          {hasBackButton && <Text style={styles.back} onPress={Actions.pop}>Back</Text>}
+          {hasLanguageSwitcher &&
+            <Text style={styles.back} onPress={() => { setLanguage(otherLanguage); }}>
+              {otherLanguage}
+            </Text>
+          }
+
+          {hasBackButton &&
+            <Text style={styles.back} onPress={Actions.pop}>Back</Text>
+          }
 
           <Text style={styles.headingText}>CZ Phrasebook</Text>
 
-          {hasAddButton && <Text style={styles.add} onPress={Actions.form}>+</Text>}
+          {hasAddButton &&
+            <Text style={styles.add} onPress={Actions.form}>+</Text>
+          }
         </View>
 
         {children}
