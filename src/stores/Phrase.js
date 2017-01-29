@@ -34,6 +34,8 @@ export default class PhraseStore {
 
     this.phrases = (JSON.parse(phrases) || []).map(item => PhraseModel.fromJS(this, item));
     this.pending = false;
+
+    return this.phrases;
   }
 
   @action

@@ -20,7 +20,7 @@ export default class PhraseForm extends Component {
     const { form, store } = this.props;
 
     form.submit({
-      onSuccess: (successForm) => { store.addPhrase(successForm.values()); },
+      onSuccess: (successForm) => { store.addPhrase(successForm.values()); form.reset(); },
       onError: (errorForm) => { errorForm.invalidate('This is a generic error message!'); }
     });
   }

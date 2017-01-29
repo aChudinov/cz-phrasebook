@@ -1,34 +1,10 @@
-import React, { Component } from 'react';
-import Form from './Form.react';
+import CommonLayout from '../layouts/Common.react';
 import fields from './fields';
-import { observer } from 'mobx-react/native';
-import { StyleSheet, Text, View } from 'react-native';
+import Form from './Form.react';
+import React from 'react';
 
-@observer
-export default class PhraseFormPage extends Component {
-
-  render() {
-    return (
-      <View style={{ flex: 1 }}>
-        <View style={styles.heading}>
-          <Text style={styles.headingText}>CZ Phrasebook</Text>
-        </View>
-
-        <Form form={fields} />
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  heading: {
-    paddingTop: 20,
-    height: 80,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-
-  headingText: {
-    fontWeight: 'bold'
-  }
-});
+export default () => (
+  <CommonLayout hasBackButton>
+    <Form form={fields} />
+  </CommonLayout>
+);
