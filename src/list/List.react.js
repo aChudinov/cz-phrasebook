@@ -1,3 +1,4 @@
+import CommonLayout from '../layouts/Common.react';
 import formatData from '../lib/formatPhrasesData';
 import ListItem from './Item.react';
 import React, { Component, PropTypes as RPT } from 'react';
@@ -45,7 +46,7 @@ export default class PhraseList extends Component {
     }
 
     return (
-      <View>
+      <CommonLayout hasAddButton>
         <ListView
           dataSource={this.getSortedPhrases()}
           enableEmptySections
@@ -53,7 +54,7 @@ export default class PhraseList extends Component {
           renderSectionHeader={sectionData => <SectionHeader {...sectionData} />}
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
         />
-      </View>
+      </CommonLayout>
     );
   }
 }

@@ -1,40 +1,26 @@
 import React, { Component, PropTypes as RPT } from 'react';
 import { Actions } from 'react-native-router-flux';
-import { inject, observer } from 'mobx-react/native';
 import { StyleSheet, Text, View } from 'react-native';
 
-@inject('store')
-@observer
 export default class CommonLayout extends Component {
 
   static propTypes = {
     children: RPT.node.isRequired,
     hasAddButton: RPT.bool,
-    hasBackButton: RPT.bool,
-    hasLanguageSwitcher: RPT.bool,
-    store: RPT.object.isRequired
+    hasBackButton: RPT.bool
   }
 
   static defaultProps = {
     hasAddButton: false,
-    hasBackButton: false,
-    hasLanguageSwitcher: false
+    hasBackButton: false
   }
 
   render() {
-    const { children, hasAddButton, hasBackButton, hasLanguageSwitcher,
-      store: { otherLanguage, setLanguage }
-    } = this.props;
+    const { children, hasAddButton, hasBackButton } = this.props;
 
     return (
       <View style={{ flex: 1 }}>
         <View style={styles.heading}>
-          {hasLanguageSwitcher &&
-            <Text style={styles.back} onPress={() => { setLanguage(otherLanguage); }}>
-              {otherLanguage}
-            </Text>
-          }
-
           {hasBackButton &&
             <Text style={styles.back} onPress={Actions.pop}>Back</Text>
           }
