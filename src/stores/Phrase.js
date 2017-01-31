@@ -7,6 +7,7 @@ import { AsyncStorage } from 'react-native';
 export default class PhraseStore {
   @observable phrases = [];
   @observable language = 'cz';
+  @observable selectedPhraseId = null;
   @observable pending = false;
 
   constructor() {
@@ -29,6 +30,16 @@ export default class PhraseStore {
 
   @computed get otherLanguage() {
     return this.language === 'cz' ? 'ru' : 'cz';
+  }
+
+  @action.bound
+  selectPhrase(id) {
+    this.selectedPhraseId = id;
+  }
+
+  @action.bound
+  unselectPhrase() {
+    this.selectedPhraseId = null;
   }
 
   @action.bound

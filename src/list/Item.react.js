@@ -1,5 +1,5 @@
 import React, { Component, PropTypes as RPT } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Text, TouchableHighlight, StyleSheet, View } from 'react-native';
 
 export default class ListItem extends Component {
 
@@ -10,16 +10,30 @@ export default class ListItem extends Component {
       ru: RPT.string.isRequired
     }).isRequired,
     language: RPT.string.isRequired,
-    otherLanguage: RPT.string.isRequired
+    otherLanguage: RPT.string.isRequired,
+    selectPhrase: RPT.func.isRequired
   }
 
   render() {
-    const { phrase, language, otherLanguage } = this.props;
+    const { phrase, language, otherLanguage, selectPhrase } = this.props;
 
     return (
-      <View key={phrase.id} style={styles.container}>
-        <Text>{phrase[language]} — {phrase[otherLanguage]}</Text>
-      </View>
+      <TouchableHighlight
+        key={phrase.id}
+        style={styles.container}
+        onPress={() => { selectPhrase(phrase.id); }}
+        underlayColor="#99d9f4"
+      >
+        <View>
+          <Text style={styles.word}>
+            {phrase[language]}
+          </Text>
+
+          <Text style={styles.translate}>
+            {phrase[otherLanguage]}
+          </Text>
+        </View>
+      </TouchableHighlight>
     );
   }
 }
@@ -30,5 +44,14 @@ const styles = StyleSheet.create({
     padding: 12,
     flexDirection: 'row',
     alignItems: 'center'
+  },
+
+  translate: {
+    fontSize: 12
+  },
+
+  word: {
+    fontWeight: 'bold',
+    marginBottom: 5
   }
 });

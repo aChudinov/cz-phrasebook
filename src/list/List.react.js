@@ -1,6 +1,7 @@
 import CommonLayout from '../layouts/Common.react';
 import formatData from '../lib/formatPhrasesData';
 import ListItem from './Item.react';
+import Modal from './Modal.react';
 import React, { Component, PropTypes as RPT } from 'react';
 import SectionHeader from './SectionHeader.react';
 import sortPhrases from '../lib/sortPhrases';
@@ -35,7 +36,7 @@ export default class PhraseList extends Component {
   }
 
   render() {
-    const { store: { language, otherLanguage, pending, phrases } } = this.props;
+    const { store: { language, otherLanguage, pending, phrases, selectPhrase, unselectPhrase, selectedPhraseId } } = this.props;
 
     if (pending || !phrases) {
       return <ActivityIndicator animating size="large" />;
@@ -45,14 +46,23 @@ export default class PhraseList extends Component {
       return <Text>Empty</Text>;
     }
 
+    const selectedPhrase = selectedPhraseId ?
+      phrases.find(({ id }) => id === selectedPhraseId) :
+      null;
+
     return (
       <CommonLayout hasAddButton>
         <ListView
           dataSource={this.getSortedPhrases()}
           enableEmptySections
-          renderRow={phrase => <ListItem language={language} otherLanguage={otherLanguage} phrase={phrase} />}
+          renderRow={phrase => <ListItem language={language} selectPhrase={selectPhrase} otherLanguage={otherLanguage} phrase={phrase} />}
           renderSectionHeader={sectionData => <SectionHeader {...sectionData} />}
           renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
+        />
+
+        <Modal
+          phrase={selectedPhrase}
+          unselectPhrase={unselectPhrase}
         />
       </CommonLayout>
     );
