@@ -25,6 +25,14 @@ export default class PhraseModel {
     this.store.phrases.remove(this);
   }
 
+  update({ cz, ru, archived, tags, comment }) {
+    this.cz = cz;
+    this.ru = ru;
+    this.archived = archived;
+    this.tags = tags;
+    this.comment = comment;
+  }
+
   toJS() {
     const { id, cz, ru, archived, tags, comment } = this;
 

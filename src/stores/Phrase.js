@@ -69,6 +69,14 @@ export default class PhraseStore {
     Actions.list();
   }
 
+  @action
+  updatePhrase(id, params) {
+    const phrase = this.phrases.find(p => p.id === id);
+
+    phrase.update(params);
+    Actions.list();
+  }
+
   toJS() {
     return this.phrases.map(phrase => phrase.toJS());
   }

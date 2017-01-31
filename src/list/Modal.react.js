@@ -1,4 +1,5 @@
 import React, { Component, PropTypes as RPT } from 'react';
+import { Actions } from 'react-native-router-flux';
 import { Modal, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
 export default class PhraseModal extends Component {
@@ -37,6 +38,17 @@ export default class PhraseModal extends Component {
             <Text key={tag} style={styles.tag}>{tag}</Text>
           )}
         </View>
+
+        <TouchableHighlight
+          style={styles.button}
+          onPress={() => {
+            unselectPhrase();
+            Actions.form({ data: phrase });
+          }}
+          underlayColor="#99d9f4"
+        >
+          <Text style={styles.buttonText}>Edit</Text>
+        </TouchableHighlight>
 
         <TouchableHighlight
           style={styles.button}
@@ -90,6 +102,7 @@ const styles = StyleSheet.create({
 
   button: {
     height: 50,
+    marginTop: 10,
     backgroundColor: '#48BBEC',
     justifyContent: 'center'
   },

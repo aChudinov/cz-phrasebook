@@ -12,15 +12,44 @@ export default class PhraseForm extends Component {
 
   static propTypes = {
     form: RPT.object.isRequired,
+    phrase: RPT.object,
     store: RPT.object.isRequired
+  }
+
+  componentDidMount() {
+    const { form, phrase } = this.props;
+
+    if (phrase) {
+      form.set('value', {
+        cz: phrase.cz || '',
+        ru: phrase.ru || '',
+        archived: phrase.archived || false,
+        tags: phrase.tags || [],
+        comment: phrase.comment || ''
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    const { form } = this.props;
+
+    form.reset();
   }
 
   @autobind
   onSubmit() {
-    const { form, store } = this.props;
+    const { form, phrase, store } = this.props;
 
     form.submit({
-      onSuccess: (successForm) => { store.addPhrase(successForm.values()); form.reset(); },
+      onSuccess: (successForm) => {
+        if (phrase) {
+          store.updatePhrase(phrase.id, successForm.values());
+        } else {
+          store.addPhrase(successForm.values());
+        }
+
+        form.reset();
+      },
       onError: (errorForm) => { errorForm.invalidate('This is a generic error message!'); }
     });
   }
