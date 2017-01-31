@@ -19,7 +19,7 @@ export default class CommonLayout extends Component {
     const { children, hasAddButton, hasBackButton } = this.props;
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.container}>
         <View style={styles.heading}>
           {hasBackButton &&
             <Text style={styles.back} onPress={Actions.pop}>Back</Text>
@@ -39,6 +39,11 @@ export default class CommonLayout extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    paddingBottom: 50,
+    flex: 1
+  },
+
   heading: {
     paddingTop: 20,
     height: 80,

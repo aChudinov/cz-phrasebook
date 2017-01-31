@@ -22,6 +22,11 @@ const fields = {
     label: 'Tags',
     rules: 'required|array',
     value: []
+  },
+  comment: {
+    label: 'Comment',
+    rules: 'string',
+    bindings: 'input'
   }
 };
 

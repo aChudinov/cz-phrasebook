@@ -8,8 +8,9 @@ export default class PhraseModel {
   @observable ru;
   @observable archived;
   @observable tags;
+  @observable comment;
 
-  constructor(store, id, { cz, ru, archived, tags }) {
+  constructor(store, id, { cz, ru, archived, tags, comment }) {
     this.store = store;
     this.id = id;
 
@@ -17,6 +18,7 @@ export default class PhraseModel {
     this.ru = ru;
     this.archived = archived;
     this.tags = tags;
+    this.comment = comment;
   }
 
   destroy() {
@@ -24,12 +26,12 @@ export default class PhraseModel {
   }
 
   toJS() {
-    const { id, cz, ru, archived, tags } = this;
+    const { id, cz, ru, archived, tags, comment } = this;
 
-    return { id, cz, ru, archived, tags };
+    return { id, cz, ru, archived, tags, comment };
   }
 
-  static fromJS(store, { id, cz, ru, archived, tags }) {
-    return new PhraseModel(store, id, { cz, ru, archived, tags });
+  static fromJS(store, { id, cz, ru, archived, tags, comment }) {
+    return new PhraseModel(store, id, { cz, ru, archived, tags, comment });
   }
 }

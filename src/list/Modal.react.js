@@ -28,8 +28,13 @@ export default class PhraseModal extends Component {
         </View>
 
         <View style={styles.row}>
+          <Text style={styles.label}>Comment</Text>
+          <Text style={styles.value}>{phrase.comment}</Text>
+        </View>
+
+        <View style={styles.row}>
           {phrase.tags.map(tag =>
-            <Text id={tag} style={styles.tag}>{tag}</Text>
+            <Text key={tag} style={styles.tag}>{tag}</Text>
           )}
         </View>
 

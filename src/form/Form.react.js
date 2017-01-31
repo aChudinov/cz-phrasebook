@@ -33,6 +33,7 @@ export default class PhraseForm extends Component {
         <TextInput field={form.$('cz')} />
         <TextInput field={form.$('ru')} />
         <Switch field={form.$('archived')} />
+        <TextInput field={form.$('comment')} />
         <TagInput field={form.$('tags')} />
 
         <TouchableHighlight
