@@ -22,7 +22,7 @@ export default class CommonLayout extends Component {
       <View style={styles.container}>
         <View style={styles.heading}>
           {hasBackButton &&
-            <Text style={styles.back} onPress={Actions.pop}>Back</Text>
+            <Text style={styles.back} onPress={Actions.pop}>{'<'}</Text>
           }
 
           <Text style={styles.headingText}>CZ Phrasebook</Text>
@@ -58,14 +58,16 @@ const styles = StyleSheet.create({
   },
 
   back: {
+    fontSize: 30,
     position: 'absolute',
-    left: 10,
-    top: 40
+    left: 15,
+    top: 30
   },
 
   add: {
+    fontSize: 30,
     position: 'absolute',
-    right: 10,
-    top: 40
+    right: 15,
+    top: 30
   }
 });
