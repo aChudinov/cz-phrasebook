@@ -39,11 +39,19 @@ export default class PhraseList extends Component {
     const { store: { language, otherLanguage, pending, phrases, selectPhrase, unselectPhrase, selectedPhraseId } } = this.props;
 
     if (pending || !phrases) {
-      return <ActivityIndicator animating size="large" />;
+      return (
+        <CommonLayout hasAddButton>
+          <ActivityIndicator animating size="large" />
+        </CommonLayout>
+      );
     }
 
     if (!phrases.length) {
-      return <Text>Empty</Text>;
+      return (
+        <CommonLayout hasAddButton>
+          <Text style={styles.empty}>Empty</Text>
+        </CommonLayout>
+      );
     }
 
     const selectedPhrase = selectedPhraseId ?
@@ -85,6 +93,12 @@ export default class PhraseList extends Component {
 }
 
 const styles = StyleSheet.create({
+  empty: {
+    marginTop: 20,
+    fontSize: 16,
+    alignSelf: 'center'
+  },
+
   separator: {
     flex: 1,
     height: StyleSheet.hairlineWidth,

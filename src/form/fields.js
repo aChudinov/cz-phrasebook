@@ -20,7 +20,7 @@ const fields = {
   },
   tags: {
     placeholder: 'Tags',
-    rules: 'required|array',
+    rules: 'array',
     value: []
   },
   comment: {

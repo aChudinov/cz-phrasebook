@@ -65,12 +65,14 @@ const styles = StyleSheet.create({
     fontSize: 30,
     position: 'absolute',
     left: 15,
-    top: 30
+    top: 30,
+    paddingRight: 40
   },
 
   add: {
     fontSize: 30,
     position: 'absolute',
+    paddingLeft: 40,
     right: 15,
     top: 30
   }
