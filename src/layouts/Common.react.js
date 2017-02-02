@@ -25,7 +25,7 @@ export default class CommonLayout extends Component {
             <Text style={styles.back} onPress={Actions.pop}>{'<'}</Text>
           }
 
-          <Text style={styles.headingText}>CZ Phrasebook</Text>
+          <Text style={styles.headingText}>Phrasebook</Text>
 
           {hasAddButton &&
             <Text style={styles.add} onPress={Actions.form}>+</Text>
@@ -49,8 +49,9 @@ const styles = StyleSheet.create({
     height: 80,
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: 'gray'
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#8E8E8E',
+    backgroundColor: '#F9F9F9'
   },
 
   headingText: {

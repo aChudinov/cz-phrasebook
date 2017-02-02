@@ -18,7 +18,7 @@ export default class ListPage extends Component {
 
     return (
       <TabBarIOS
-        barTintColor="#EAEAEA"
+        barTintColor="#F9F9F9"
         tintColor="black"
         unselectedTintColor="#8E8E8E"
         unselectedItemTintColor="#8E8E8E"

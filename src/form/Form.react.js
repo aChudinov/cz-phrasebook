@@ -68,7 +68,7 @@ export default class PhraseForm extends Component {
         <TouchableHighlight
           style={styles.button}
           onPress={this.onSubmit}
-          underlayColor="#99d9f4"
+          underlayColor="#88E2E6"
         >
           <Text style={styles.buttonText}>Save</Text>
         </TouchableHighlight>
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
 
   button: {
     height: 50,
-    backgroundColor: '#48BBEC',
+    backgroundColor: '#34C6CD',
     justifyContent: 'center'
   },
 

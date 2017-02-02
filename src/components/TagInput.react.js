@@ -11,7 +11,7 @@ export default observer(({ field }) =>
 
     <View style={styles.container}>
       <TagInput
-        tagColor="#48BBEC"
+        tagColor="#34C6CD"
         tagTextColor="white"
         inputProps={{
           keyboardType: 'default',

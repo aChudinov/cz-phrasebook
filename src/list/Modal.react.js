@@ -80,7 +80,7 @@ export default class PhraseModal extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'space-around'
   },
 
   row: {
@@ -96,14 +96,14 @@ const styles = StyleSheet.create({
   },
 
   tag: {
-    backgroundColor: '#48BBEC',
+    backgroundColor: '#88E2E6',
     padding: 4
   },
 
   button: {
     height: 50,
     marginTop: 10,
-    backgroundColor: '#48BBEC',
+    backgroundColor: '#88E2E6',
     justifyContent: 'center'
   },
 

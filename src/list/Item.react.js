@@ -22,7 +22,7 @@ export default class ListItem extends Component {
         key={phrase.id}
         style={styles.container}
         onPress={() => { selectPhrase(phrase.id); }}
-        underlayColor="#99d9f4"
+        underlayColor="#88E2E6"
       >
         <View>
           <Text style={styles.word}>
