@@ -1,4 +1,4 @@
 import React from 'react';
 import { View } from 'react-native';
 
-export default () => <View style={{ height: 25 }} />;
+export default ({ thin }) => <View style={{ height: thin ? 10 : 25 }} />;

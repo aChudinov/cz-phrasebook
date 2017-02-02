@@ -1,63 +1,51 @@
+import Button from '../components/Button.react';
+import CommonLayout from '../layouts/Common.react';
 import React, { Component, PropTypes as RPT } from 'react';
+import Spacer from '../components/Spacer.react';
 import { Actions } from 'react-native-router-flux';
-import { Modal, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Modal, StyleSheet, Text, View } from 'react-native';
 
 export default class PhraseModal extends Component {
 
   static propTypes = {
+    language: RPT.string.isRequired,
+    otherLanguage: RPT.string.isRequired,
     unselectPhrase: RPT.func.isRequired,
     phrase: RPT.object
   }
 
   renderContent() {
-    const { phrase, unselectPhrase } = this.props;
+    const { phrase, unselectPhrase, language, otherLanguage } = this.props;
 
     if (!phrase) {
       return null;
     }
 
     return (
-      <View style={styles.container}>
-        <View style={styles.row}>
-          <Text style={styles.label}>CZ</Text>
-          <Text style={styles.value}>{phrase.cz}</Text>
+      <CommonLayout title={phrase[language]}>
+        <View style={styles.translation}>
+          <Text style={styles.translationText}>{phrase[otherLanguage]}</Text>
         </View>
 
-        <View style={styles.row}>
-          <Text style={styles.label}>RU</Text>
-          <Text style={styles.value}>{phrase.ru}</Text>
-        </View>
-
-        <View style={styles.row}>
+        <View style={styles.container}>
           <Text style={styles.label}>Comment</Text>
-          <Text style={styles.value}>{phrase.comment}</Text>
+          <Text>{phrase.comment}</Text>
         </View>
 
-        <View style={styles.row}>
-          {phrase.tags.map(tag =>
-            <Text key={tag} style={styles.tag}>{tag}</Text>
-          )}
+        <View style={styles.container}>
+          <Text style={styles.label}>Tags</Text>
+          <View style={styles.tags}>
+            {phrase.tags.map(tag =>
+              <Text key={tag} style={styles.tag}>{tag}</Text>
+            )}
+          </View>
         </View>
 
-        <TouchableHighlight
-          style={styles.button}
-          onPress={() => {
-            unselectPhrase();
-            Actions.form({ data: phrase });
-          }}
-          underlayColor="#99d9f4"
-        >
-          <Text style={styles.buttonText}>Edit</Text>
-        </TouchableHighlight>
-
-        <TouchableHighlight
-          style={styles.button}
-          onPress={unselectPhrase}
-          underlayColor="#99d9f4"
-        >
-          <Text style={styles.buttonText}>Close</Text>
-        </TouchableHighlight>
-      </View>
+        <Spacer />
+        <Button onPress={() => { unselectPhrase(); Actions.form({ data: phrase }); }} text="Edit" />
+        <Spacer thin />
+        <Button onPress={unselectPhrase} text="Close" />
+      </CommonLayout>
     );
   }
 
@@ -78,38 +66,44 @@ export default class PhraseModal extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'space-around'
+  translation: {
+    alignItems: 'center',
+    marginTop: 25,
+    marginBottom: 25
   },
 
-  row: {
-    padding: 20
-  },
-
-  label: {
+  translationText: {
+    fontSize: 16,
     fontWeight: 'bold'
   },
 
-  value: {
+  container: {
+    padding: 10,
+    backgroundColor: '#FFFFFF',
+    borderBottomColor: '#DEDEDE',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderTopColor: '#DEDEDE',
+    borderTopWidth: StyleSheet.hairlineWidth
+  },
 
+  label: {
+    fontWeight: 'bold',
+    marginBottom: 10
+  },
+
+  tags: {
+    flexDirection: 'row',
+    flexWrap: 'wrap'
   },
 
   tag: {
     backgroundColor: '#88E2E6',
-    padding: 4
-  },
-
-  button: {
-    height: 50,
-    marginTop: 10,
-    backgroundColor: '#88E2E6',
-    justifyContent: 'center'
-  },
-
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
+    padding: 4,
+    paddingLeft: 10,
+    paddingRight: 10,
+    marginRight: 10,
+    color: '#FFFFFF',
+    borderRadius: 3,
+    overflow: 'hidden'
   }
 });

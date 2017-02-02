@@ -60,8 +60,8 @@ export default class PhraseList extends Component {
           renderRow={phrase =>
             <ListItem
               language={language}
-              selectPhrase={selectPhrase}
               otherLanguage={otherLanguage}
+              selectPhrase={selectPhrase}
               phrase={phrase}
             />
           }
@@ -76,6 +76,8 @@ export default class PhraseList extends Component {
         <Modal
           phrase={selectedPhrase}
           unselectPhrase={unselectPhrase}
+          language={language}
+          otherLanguage={otherLanguage}
         />
       </CommonLayout>
     );

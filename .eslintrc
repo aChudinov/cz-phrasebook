@@ -26,6 +26,7 @@
     "react/jsx-no-bind": 0,
     "react/no-string-refs": 0,
     "react/prefer-stateless-function": 0,
+    "react/require-default-props": 0
   },
   "globals": {
     "console": false,

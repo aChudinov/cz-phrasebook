@@ -7,7 +7,8 @@ export default class CommonLayout extends Component {
   static propTypes = {
     children: RPT.node.isRequired,
     hasAddButton: RPT.bool,
-    hasBackButton: RPT.bool
+    hasBackButton: RPT.bool,
+    title: RPT.string
   }
 
   static defaultProps = {
@@ -16,7 +17,7 @@ export default class CommonLayout extends Component {
   }
 
   render() {
-    const { children, hasAddButton, hasBackButton } = this.props;
+    const { children, hasAddButton, hasBackButton, title } = this.props;
 
     return (
       <View style={styles.container}>
@@ -25,7 +26,7 @@ export default class CommonLayout extends Component {
             <Text style={styles.back} onPress={Actions.pop}>{'<'}</Text>
           }
 
-          <Text style={styles.headingText}>Phrasebook</Text>
+          <Text style={styles.headingText}>{title || 'Phrasebook'}</Text>
 
           {hasAddButton &&
             <Text style={styles.add} onPress={Actions.form}>+</Text>

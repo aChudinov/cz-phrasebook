@@ -17,7 +17,7 @@ export default class Button extends Component {
         onPress={onPress}
         underlayColor="#88E2E6"
       >
-        <Text style={styles.buttonText}>{text}</Text>
+        <Text style={styles.buttonText}>{text.toUpperCase()}</Text>
       </TouchableHighlight>
     );
   }

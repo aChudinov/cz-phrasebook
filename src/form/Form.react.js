@@ -1,9 +1,9 @@
 import Button from '../components/Button.react';
+import React, { Component, PropTypes as RPT } from 'react';
 import Spacer from '../components/Spacer.react';
 import Switch from '../components/Switch.react';
 import TagInput from '../components/TagInput.react';
 import TextInput from '../components/TextInput.react';
-import React, { Component, PropTypes as RPT } from 'react';
 import { autobind } from 'core-decorators';
 import { inject, observer } from 'mobx-react/native';
 import { View } from 'react-native';
