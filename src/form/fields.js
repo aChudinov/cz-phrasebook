@@ -3,12 +3,12 @@ import validatorjs from 'validatorjs';
 
 const fields = {
   cz: {
-    label: 'CZ',
+    placeholder: 'Czech',
     rules: 'required|string',
     bindings: 'input'
   },
   ru: {
-    label: 'RU',
+    placeholder: 'Russian',
     rules: 'required|string',
     bindings: 'input'
   },
@@ -19,12 +19,12 @@ const fields = {
     bindings: 'switch'
   },
   tags: {
-    label: 'Tags',
+    placeholder: 'Tags',
     rules: 'required|array',
     value: []
   },
   comment: {
-    label: 'Comment',
+    placeholder: 'Comment',
     rules: 'string',
     bindings: 'input'
   }

@@ -40,8 +40,9 @@ export default class CommonLayout extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 50,
-    flex: 1
+    paddingBottom: 49,
+    flex: 1,
+    backgroundColor: '#EDEDED'
   },
 
   heading: {
@@ -55,7 +56,8 @@ const styles = StyleSheet.create({
   },
 
   headingText: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontSize: 16
   },
 
   back: {

@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 12,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF'
   },
 
   translate: {

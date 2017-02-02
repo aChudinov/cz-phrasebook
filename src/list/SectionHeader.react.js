@@ -24,6 +24,10 @@ const styles = StyleSheet.create({
     padding: 8,
     justifyContent: 'center',
     backgroundColor: '#D1EAEB',
+    borderBottomColor: '#DEDEDE',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderTopColor: '#DEDEDE',
+    borderTopWidth: StyleSheet.hairlineWidth
   },
   text: {
     fontSize: 13,

@@ -4,31 +4,35 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default observer(({ field }) =>
   <View>
-    <Text style={styles.label}>
-      {field.label}
-    </Text>
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder={field.placeholder}
+        {...field.bind()}
+      />
+    </View>
 
-    <TextInput
-      style={styles.input}
-      {...field.bind()}
-    />
-
-    <Text style={styles.error}>
-      {field.error}
-    </Text>
+    {field.error &&
+      <Text style={styles.error}>
+        {field.error}
+      </Text>
+    }
   </View>
 );
 
 const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    backgroundColor: '#f2f2f2',
-    padding: 10
+  container: {
+    borderBottomColor: '#DEDEDE',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderTopColor: '#DEDEDE',
+    borderTopWidth: StyleSheet.hairlineWidth
   },
 
-  label: {
-    fontWeight: 'bold',
-    marginTop: 10
+  input: {
+    fontSize: 16,
+    height: 50,
+    backgroundColor: '#FFFFFF',
+    padding: 10
   },
 
   error: {

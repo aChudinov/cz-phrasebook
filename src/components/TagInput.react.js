@@ -4,44 +4,45 @@ import { StyleSheet, Text, View } from 'react-native';
 import TagInput from 'react-native-tag-input';
 
 export default observer(({ field }) =>
-  <View style={styles.wrapper}>
-    <Text style={styles.label}>
-      {field.label}
-    </Text>
-
+  <View>
     <View style={styles.container}>
       <TagInput
         tagColor="#34C6CD"
         tagTextColor="white"
         inputProps={{
           keyboardType: 'default',
-          placeholder: ''
+          placeholder: field.placeholder
         }}
         numberOfLines={1}
         regex={/^(?!\s*$).+/}
         {...field.bind()}
       />
     </View>
+
+    {field.error &&
+      <Text style={styles.error}>
+        {field.error}
+      </Text>
+    }
   </View>
 );
 
 
 const styles = StyleSheet.create({
-  wrapper: {
-    marginBottom: 60
-  },
-
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#FFFFFF',
     padding: 10,
-    paddingTop: 0,
-    paddingBottom: 2
+    paddingTop: 5,
+    paddingBottom: 3,
+    borderBottomColor: '#DEDEDE',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderTopColor: '#DEDEDE',
+    borderTopWidth: StyleSheet.hairlineWidth
   },
 
-  label: {
-    fontWeight: 'bold',
-    marginTop: 10
+  error: {
+    color: '#ff0000'
   }
 });

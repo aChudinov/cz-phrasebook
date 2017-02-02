@@ -1,10 +1,12 @@
+import Button from '../components/Button.react';
+import Spacer from '../components/Spacer.react';
 import Switch from '../components/Switch.react';
 import TagInput from '../components/TagInput.react';
 import TextInput from '../components/TextInput.react';
 import React, { Component, PropTypes as RPT } from 'react';
 import { autobind } from 'core-decorators';
 import { inject, observer } from 'mobx-react/native';
-import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { View } from 'react-native';
 
 @inject('store')
 @observer
@@ -19,6 +21,9 @@ export default class PhraseForm extends Component {
   componentDidMount() {
     const { form, phrase } = this.props;
 
+    form.clear();
+    form.reset();
+
     if (phrase) {
       form.set('value', {
         cz: phrase.cz || '',
@@ -28,12 +33,6 @@ export default class PhraseForm extends Component {
         comment: phrase.comment || ''
       });
     }
-  }
-
-  componentWillUnmount() {
-    const { form } = this.props;
-
-    form.reset();
   }
 
   @autobind
@@ -58,39 +57,19 @@ export default class PhraseForm extends Component {
     const { form } = this.props;
 
     return (
-      <View style={styles.wrapper}>
+      <View>
+        <Spacer />
         <TextInput field={form.$('cz')} />
         <TextInput field={form.$('ru')} />
+        <Spacer />
         <Switch field={form.$('archived')} />
+        <Spacer />
         <TextInput field={form.$('comment')} />
         <TagInput field={form.$('tags')} />
-
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.onSubmit}
-          underlayColor="#88E2E6"
-        >
-          <Text style={styles.buttonText}>Save</Text>
-        </TouchableHighlight>
+        <Spacer />
+        <Spacer />
+        <Button text="Save" onPress={this.onSubmit} />
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    marginBottom: 20
-  },
-
-  button: {
-    height: 50,
-    backgroundColor: '#34C6CD',
-    justifyContent: 'center'
-  },
-
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
-  }
-});
