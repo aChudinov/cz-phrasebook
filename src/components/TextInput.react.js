@@ -6,6 +6,7 @@ export default observer(({ field }) =>
   <View>
     <View style={styles.container}>
       <TextInput
+        blurOnSubmit
         style={styles.input}
         placeholder={field.placeholder}
         {...field.bind()}

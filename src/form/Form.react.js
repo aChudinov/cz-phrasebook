@@ -6,7 +6,7 @@ import TagInput from '../components/TagInput.react';
 import TextInput from '../components/TextInput.react';
 import { autobind } from 'core-decorators';
 import { inject, observer } from 'mobx-react/native';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 
 @inject('store')
 @observer
@@ -21,9 +21,6 @@ export default class PhraseForm extends Component {
   componentDidMount() {
     const { form, phrase } = this.props;
 
-    form.clear();
-    form.reset();
-
     if (phrase) {
       form.set('value', {
         cz: phrase.cz || '',
@@ -33,6 +30,13 @@ export default class PhraseForm extends Component {
         comment: phrase.comment || ''
       });
     }
+  }
+
+  componentWillUnmount() {
+    const { form } = this.props;
+
+    form.clear();
+    form.reset();
   }
 
   @autobind
@@ -57,7 +61,9 @@ export default class PhraseForm extends Component {
     const { form } = this.props;
 
     return (
-      <View>
+      <ScrollView
+        keyboardDismissMode="interactive"
+      >
         <Spacer />
         <TextInput field={form.$('cz')} />
         <TextInput field={form.$('ru')} />
@@ -69,7 +75,7 @@ export default class PhraseForm extends Component {
         <Spacer />
         <Spacer />
         <Button text="Save" onPress={this.onSubmit} />
-      </View>
+      </ScrollView>
     );
   }
 }

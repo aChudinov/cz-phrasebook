@@ -10,6 +10,7 @@ export default observer(({ field }) =>
         tagColor="#34C6CD"
         tagTextColor="white"
         inputProps={{
+          blurOnSubmit: true,
           keyboardType: 'default',
           placeholder: field.placeholder
         }}
