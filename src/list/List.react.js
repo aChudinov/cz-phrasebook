@@ -53,11 +53,24 @@ export default class PhraseList extends Component {
     return (
       <CommonLayout hasAddButton>
         <ListView
+          automaticallyAdjustContentInsets={false}
           dataSource={this.getSortedPhrases()}
           enableEmptySections
-          renderRow={phrase => <ListItem language={language} selectPhrase={selectPhrase} otherLanguage={otherLanguage} phrase={phrase} />}
-          renderSectionHeader={sectionData => <SectionHeader {...sectionData} />}
-          renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
+          initialListSize={10}
+          renderRow={phrase =>
+            <ListItem
+              language={language}
+              selectPhrase={selectPhrase}
+              otherLanguage={otherLanguage}
+              phrase={phrase}
+            />
+          }
+          renderSectionHeader={sectionData =>
+            <SectionHeader {...sectionData} />
+          }
+          renderSeparator={(sectionId, rowId) =>
+            <View key={rowId} style={styles.separator} />
+          }
         />
 
         <Modal
