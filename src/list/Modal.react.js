@@ -8,6 +8,7 @@ import { Modal, StyleSheet, Text, View } from 'react-native';
 export default class PhraseModal extends Component {
 
   static propTypes = {
+    fetchTranslation: RPT.func.isRequired,
     language: RPT.string.isRequired,
     otherLanguage: RPT.string.isRequired,
     unselectPhrase: RPT.func.isRequired,
@@ -15,11 +16,13 @@ export default class PhraseModal extends Component {
   }
 
   renderContent() {
-    const { phrase, unselectPhrase, language, otherLanguage } = this.props;
+    const { phrase, fetchTranslation, unselectPhrase, language, otherLanguage } = this.props;
 
     if (!phrase) {
       return null;
     }
+
+    const translation = phrase.translation[language];
 
     return (
       <CommonLayout title={phrase[language]}>
@@ -31,6 +34,13 @@ export default class PhraseModal extends Component {
           <Text style={styles.label}>Comment</Text>
           <Text>{phrase.comment}</Text>
         </View>
+
+        {translation &&
+          <View style={styles.container}>
+            <Text style={styles.label}>Translation</Text>
+            <Text>{translation}</Text>
+          </View>
+        }
 
         <View style={styles.container}>
           <Text style={styles.label}>Tags</Text>
@@ -45,6 +55,11 @@ export default class PhraseModal extends Component {
         <Button onPress={() => { unselectPhrase(); Actions.form({ data: phrase }); }} text="Edit" />
         <Spacer thin />
         <Button onPress={unselectPhrase} text="Close" />
+        <Spacer thin />
+
+        {!translation &&
+          <Button onPress={() => { fetchTranslation(phrase); }} text="Get translation" />
+        }
       </CommonLayout>
     );
   }
@@ -97,7 +112,7 @@ const styles = StyleSheet.create({
   },
 
   tag: {
-    backgroundColor: '#88E2E6',
+    backgroundColor: '#34C6CD',
     padding: 4,
     paddingLeft: 10,
     paddingRight: 10,

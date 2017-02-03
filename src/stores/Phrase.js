@@ -52,6 +52,18 @@ export default class PhraseStore {
     });
   }
 
+  @action.bound
+  async fetchTranslation(phrase) {
+    this.pending = true;
+    const text = phrase[this.language];
+    const { text: translation } = await api.fetchTranslation(text, this.language);
+
+    runInAction('setting translation', () => {
+      phrase.addTranslation(translation.join(', '), this.language);
+      this.pending = false;
+    });
+  }
+
   @computed get otherLanguage() {
     return this.language === 'cz' ? 'ru' : 'cz';
   }

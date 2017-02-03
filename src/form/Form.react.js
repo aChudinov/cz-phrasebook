@@ -50,8 +50,6 @@ export default class PhraseForm extends Component {
         } else {
           store.addPhrase(successForm.values());
         }
-
-        form.reset();
       },
       onError: (errorForm) => { errorForm.invalidate('This is a generic error message!'); }
     });
@@ -72,6 +70,7 @@ export default class PhraseForm extends Component {
         <TagInput field={form.$('tags')} />
         <Spacer />
         <Spacer />
+
         <Button text="Save" onPress={this.onSubmit} />
       </ScrollView>
     );

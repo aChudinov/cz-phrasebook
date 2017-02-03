@@ -9,6 +9,7 @@ export default class PhraseModel {
   @observable archived;
   @observable tags;
   @observable comment;
+  @observable translation = {};
 
   constructor(store, id, { cz, ru, archived, tags, comment }) {
     this.store = store;
@@ -33,10 +34,14 @@ export default class PhraseModel {
     this.comment = comment;
   }
 
-  toJS() {
-    const { id, cz, ru, archived, tags, comment } = this;
+  addTranslation(translation, language) {
+    this.translation[language] = translation;
+  }
 
-    return { id, cz, ru, archived, tags: tags.toJS(), comment };
+  toJS() {
+    const { id, cz, ru, archived, tags, comment, translation } = this;
+
+    return { id, cz, ru, archived, tags: tags.toJS(), comment, translation };
   }
 
   static fromJS(store, { id, cz, ru, archived, tags, comment }) {

@@ -37,7 +37,7 @@ export default class PhraseList extends Component {
 
   render() {
     const { store: {
-      language, otherLanguage, pending, phrases, selectPhrase, unselectPhrase, selectedPhraseId
+      language, otherLanguage, pending, phrases, selectPhrase, unselectPhrase, selectedPhraseId, fetchTranslation
     } } = this.props;
 
     if (pending || !phrases) {
@@ -84,6 +84,7 @@ export default class PhraseList extends Component {
         />
 
         <Modal
+          fetchTranslation={fetchTranslation}
           phrase={selectedPhrase}
           unselectPhrase={unselectPhrase}
           language={language}
