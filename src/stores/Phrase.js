@@ -1,3 +1,4 @@
+import * as api from '../lib/api';
 import PhraseModel from '../models/Phrase';
 import uid from '../lib/uid';
 import { action, computed, observable, reaction, runInAction } from 'mobx';
@@ -12,7 +13,7 @@ export default class PhraseStore {
 
   constructor() {
     // AsyncStorage.clear();
-    this.fetchPhrases().then(() => {
+    this.getPhrases().then(() => {
       this.subscribeLocalstorageToStore();
     });
   }
@@ -26,6 +27,29 @@ export default class PhraseStore {
         this.pending = false;
       }
     );
+  }
+
+  @action.bound
+  async uploadPhrases() {
+    this.pending = true;
+    await api.uploadPhrases(this.toJS());
+    runInAction('update after uploading phrases', () => {
+      this.pending = false;
+    });
+  }
+
+  @action.bound
+  async fetchPhrases() {
+    this.pending = true;
+    const phrases = await api.fetchPhrases();
+
+    runInAction('update after fetching phrases', () => {
+      if (phrases && phrases.length) {
+        this.phrases = phrases.map(item => PhraseModel.fromJS(this, item));
+      }
+
+      this.pending = false;
+    });
   }
 
   @computed get otherLanguage() {
@@ -48,17 +72,15 @@ export default class PhraseStore {
   }
 
   @action
-  async fetchPhrases() {
+  async getPhrases() {
     this.pending = true;
 
     const phrases = await AsyncStorage.getItem('phrases');
 
-    runInAction('update after fetching phrases', () => {
+    runInAction('update after getting phrases', () => {
       this.phrases = (JSON.parse(phrases) || []).map(item => PhraseModel.fromJS(this, item));
       this.pending = false;
     });
-
-    return this.phrases;
   }
 
   @action

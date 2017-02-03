@@ -14,6 +14,7 @@
     "import/named": 2,
     "import/namespace": 2,
     "import/no-unresolved": [2, {"commonjs": true}],
+    "import/prefer-default-export": 0,
     "key-spacing": [2, {"beforeColon": false, "afterColon": true, "mode": "minimum"}],
     "max-len": 0,
     "new-cap": [2, {"capIsNew": false, "newIsCap": true}],
@@ -30,6 +31,7 @@
   },
   "globals": {
     "console": false,
+    "fetch": false,
     "module": false,
     "process": false,
     "require": false,

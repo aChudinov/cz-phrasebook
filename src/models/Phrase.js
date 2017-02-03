@@ -36,7 +36,7 @@ export default class PhraseModel {
   toJS() {
     const { id, cz, ru, archived, tags, comment } = this;
 
-    return { id, cz, ru, archived, tags, comment };
+    return { id, cz, ru, archived, tags: tags.toJS(), comment };
   }
 
   static fromJS(store, { id, cz, ru, archived, tags, comment }) {

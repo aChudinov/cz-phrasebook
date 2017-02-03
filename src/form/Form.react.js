@@ -45,7 +45,7 @@ export default class PhraseForm extends Component {
 
     form.submit({
       onSuccess: (successForm) => {
-        if (phrase) {
+        if (phrase && phrase.id) {
           store.updatePhrase(phrase.id, successForm.values());
         } else {
           store.addPhrase(successForm.values());
@@ -61,9 +61,7 @@ export default class PhraseForm extends Component {
     const { form } = this.props;
 
     return (
-      <ScrollView
-        keyboardDismissMode="interactive"
-      >
+      <ScrollView keyboardDismissMode="interactive">
         <Spacer />
         <TextInput field={form.$('cz')} />
         <TextInput field={form.$('ru')} />

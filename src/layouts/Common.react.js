@@ -8,19 +8,21 @@ export default class CommonLayout extends Component {
     children: RPT.node.isRequired,
     hasAddButton: RPT.bool,
     hasBackButton: RPT.bool,
+    noPadding: RPT.bool,
     title: RPT.string
   }
 
   static defaultProps = {
     hasAddButton: false,
-    hasBackButton: false
+    hasBackButton: false,
+    noPadding: false
   }
 
   render() {
-    const { children, hasAddButton, hasBackButton, title } = this.props;
+    const { children, hasAddButton, hasBackButton, noPadding, title } = this.props;
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, noPadding && styles.noPadding]}>
         <View style={styles.heading}>
           {hasBackButton &&
             <Text style={styles.back} onPress={Actions.pop}>{'<'}</Text>
@@ -44,6 +46,10 @@ const styles = StyleSheet.create({
     paddingBottom: 49,
     flex: 1,
     backgroundColor: '#EDEDED'
+  },
+
+  noPadding: {
+    paddingBottom: 0
   },
 
   heading: {

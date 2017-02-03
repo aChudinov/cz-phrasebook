@@ -36,7 +36,9 @@ export default class PhraseList extends Component {
   }
 
   render() {
-    const { store: { language, otherLanguage, pending, phrases, selectPhrase, unselectPhrase, selectedPhraseId } } = this.props;
+    const { store: {
+      language, otherLanguage, pending, phrases, selectPhrase, unselectPhrase, selectedPhraseId
+    } } = this.props;
 
     if (pending || !phrases) {
       return (
