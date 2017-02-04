@@ -54,7 +54,7 @@ export default class PhraseList extends Component {
     }
 
     return (
-      <CommonLayout hasAddButton>
+      <CommonLayout hasAddButton hasSync>
         <ListView
           automaticallyAdjustContentInsets={false}
           dataSource={this.getSortedPhrases()}
