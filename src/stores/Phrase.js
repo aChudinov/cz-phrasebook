@@ -52,13 +52,13 @@ export default class PhraseStore {
   }
 
   @action.bound
-  async fetchTranslation(phrase) {
+  async fetchTranslation(phrase, language) {
     this.pending = true;
-    const text = phrase[this.language];
-    const { text: translation } = await api.fetchTranslation(text, this.language);
+    const text = phrase[language];
+    const { text: translation } = await api.fetchTranslation(text, language);
 
     runInAction('setting translation', () => {
-      phrase.addTranslation(translation.join(', '), this.language);
+      phrase.addTranslation(translation.join(', '), language);
       this.pending = false;
     });
   }

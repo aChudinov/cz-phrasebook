@@ -1,5 +1,6 @@
 import AddButton from './AddButton.react';
 import BackButton from './BackButton.react';
+import EditButton from './EditButton.react';
 import React, { Component, PropTypes as RPT } from 'react';
 import Synchronize from './Synchronize.react';
 import { StyleSheet, Text, View } from 'react-native';
@@ -12,6 +13,7 @@ export default class CommonLayout extends Component {
     hasBackButton: RPT.bool,
     hasSync: RPT.bool,
     noPadding: RPT.bool,
+    phrase: RPT.bool,
     title: RPT.string
   }
 
@@ -22,18 +24,18 @@ export default class CommonLayout extends Component {
   }
 
   render() {
-    const { children, hasAddButton, hasBackButton, hasSync, noPadding, title } = this.props;
+    const { children, hasAddButton, hasBackButton, phrase, hasSync, noPadding, title } = this.props;
 
     return (
       <View style={[styles.container, noPadding && styles.noPadding]}>
         <View style={styles.heading}>
           {hasBackButton && <BackButton />}
-
           {hasSync && <Synchronize />}
 
           <Text style={styles.headingText}>{title || 'Phrasebook'}</Text>
 
           {hasAddButton && <AddButton />}
+          {phrase && <EditButton phrase={phrase} />}
         </View>
 
         {children}

@@ -20,10 +20,7 @@ export default class Synchronize extends Component {
         onPress={uploadPhrases}
         onLongPress={fetchPhrases}
       >
-        <Image
-          style={styles.image}
-          source={{ uri: base64Icon, scale: 1 }}
-        />
+        <Image style={styles.image} source={{ uri: base64Icon, scale: 1 }} />
       </TouchableOpacity>
     );
   }

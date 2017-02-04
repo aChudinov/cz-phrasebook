@@ -55,14 +55,26 @@ export default class PhraseForm extends Component {
     });
   }
 
+  fetchTranslation(language) {
+    const { phrase, store: { fetchTranslation } } = this.props;
+
+    fetchTranslation(phrase, language);
+  }
+
   render() {
-    const { form } = this.props;
+    const { form, phrase } = this.props;
 
     return (
-      <ScrollView keyboardDismissMode="interactive">
+      <ScrollView keyboardDismissMode="interactive" contentContainerStyle={{ flex: 1 }}>
         <Spacer />
-        <TextInput field={form.$('cz')} />
-        <TextInput field={form.$('ru')} />
+        <TextInput
+          field={form.$('cz')}
+          action={phrase ? () => { this.fetchTranslation('cz'); } : null}
+        />
+        <TextInput
+          field={form.$('ru')}
+          action={phrase ? () => { this.fetchTranslation('ru'); } : null}
+        />
         <Spacer />
         <Switch field={form.$('archived')} />
         <Spacer />
@@ -71,7 +83,7 @@ export default class PhraseForm extends Component {
         <Spacer />
         <Spacer />
 
-        <Button text="Save" onPress={this.onSubmit} />
+        <Button text={phrase ? 'Update' : 'Save'} onPress={this.onSubmit} />
       </ScrollView>
     );
   }

@@ -16,7 +16,13 @@ export default class PhrasePage extends Component {
     const { data, store } = this.props;
 
     return (
-      <CommonLayout hasBackButton noPadding title={data[store.language]}>
+      <CommonLayout
+        hasBackButton
+        hasEditButton
+        noPadding
+        phrase={data}
+        title={data[store.language]}
+      >
         <Phrase phrase={data} store={store} />
       </CommonLayout>
     );
