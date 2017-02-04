@@ -1,81 +1,67 @@
 import Button from '../components/Button.react';
-import CommonLayout from '../layouts/Common.react';
 import React, { Component, PropTypes as RPT } from 'react';
 import Spacer from '../components/Spacer.react';
 import { Actions } from 'react-native-router-flux';
-import { Modal, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
-export default class PhraseModal extends Component {
+export default class Phrase extends Component {
 
   static propTypes = {
-    fetchTranslation: RPT.func.isRequired,
-    language: RPT.string.isRequired,
-    otherLanguage: RPT.string.isRequired,
-    unselectPhrase: RPT.func.isRequired,
-    phrase: RPT.object
+    phrase: RPT.object,
+    store: RPT.object
   }
 
-  renderContent() {
-    const { phrase, fetchTranslation, unselectPhrase, language, otherLanguage } = this.props;
+  render() {
+    const { phrase, store } = this.props;
 
     if (!phrase) {
       return null;
     }
 
-    const translation = phrase.translation[language];
+    const { language, otherLanguage, fetchTranslation } = store;
+    const translation = phrase[`${language}Translation`];
 
     return (
-      <CommonLayout title={phrase[language]}>
+      <View>
         <View style={styles.translation}>
           <Text style={styles.translationText}>{phrase[otherLanguage]}</Text>
         </View>
 
-        <View style={styles.container}>
-          <Text style={styles.label}>Comment</Text>
-          <Text>{phrase.comment}</Text>
-        </View>
-
-        {translation &&
+        {!!translation &&
           <View style={styles.container}>
             <Text style={styles.label}>Translation</Text>
             <Text>{translation}</Text>
           </View>
         }
 
-        <View style={styles.container}>
-          <Text style={styles.label}>Tags</Text>
-          <View style={styles.tags}>
-            {phrase.tags.map(tag =>
-              <Text key={tag} style={styles.tag}>{tag}</Text>
-            )}
+        {!!phrase.comment &&
+          <View style={styles.container}>
+            <Text style={styles.label}>Comment</Text>
+            <Text>{phrase.comment}</Text>
           </View>
-        </View>
+        }
+
+        {!!phrase.tags && phrase.tags.length &&
+          <View style={styles.container}>
+            <Text style={styles.label}>Tags</Text>
+            <View style={styles.tags}>
+              {phrase.tags.map(tag =>
+                <Text key={tag} style={styles.tag}>{tag}</Text>
+              )}
+            </View>
+          </View>
+        }
 
         <Spacer />
-        <Button onPress={() => { unselectPhrase(); Actions.form({ data: phrase }); }} text="Edit" />
+        <Button onPress={() => { Actions.form({ data: phrase }); }} text="Edit" />
         <Spacer thin />
-        <Button onPress={unselectPhrase} text="Close" />
+        <Button onPress={Actions.pop} text="Close" />
         <Spacer thin />
 
         {!translation &&
           <Button onPress={() => { fetchTranslation(phrase); }} text="Get translation" />
         }
-      </CommonLayout>
-    );
-  }
-
-  render() {
-    const { unselectPhrase, phrase } = this.props;
-
-    return (
-      <Modal
-        animationType="fade"
-        transparent={false}
-        visible={!!phrase}
-        onRequestClose={unselectPhrase}
-      >
-        {this.renderContent()}
-      </Modal>
+      </View>
     );
   }
 }
@@ -89,7 +75,7 @@ const styles = StyleSheet.create({
 
   translationText: {
     fontSize: 16,
-    fontWeight: 'bold'
+    fontStyle: 'italic'
   },
 
   container: {

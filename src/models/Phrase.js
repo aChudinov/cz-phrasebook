@@ -9,9 +9,10 @@ export default class PhraseModel {
   @observable archived;
   @observable tags;
   @observable comment;
-  @observable translation = {};
+  @observable czTranslation;
+  @observable ruTranslation;
 
-  constructor(store, id, { cz, ru, archived, tags, comment }) {
+  constructor(store, id, { cz, ru, archived, tags, comment, czTranslation, ruTranslation }) {
     this.store = store;
     this.id = id;
 
@@ -20,31 +21,35 @@ export default class PhraseModel {
     this.archived = archived;
     this.tags = tags;
     this.comment = comment;
+    this.czTranslation = czTranslation;
+    this.ruTranslation = ruTranslation;
   }
 
   destroy() {
     this.store.phrases.remove(this);
   }
 
-  update({ cz, ru, archived, tags, comment }) {
+  update({ cz, ru, archived, tags, comment, czTranslation, ruTranslation }) {
     this.cz = cz;
     this.ru = ru;
     this.archived = archived;
     this.tags = tags;
     this.comment = comment;
+    this.czTranslation = czTranslation;
+    this.ruTranslation = ruTranslation;
   }
 
   addTranslation(translation, language) {
-    this.translation[language] = translation;
+    this[`${language}Translation`] = translation;
   }
 
   toJS() {
-    const { id, cz, ru, archived, tags, comment, translation } = this;
+    const { id, cz, ru, archived, tags, comment, czTranslation, ruTranslation } = this;
 
-    return { id, cz, ru, archived, tags: tags.toJS(), comment, translation };
+    return { id, cz, ru, archived, tags: tags.toJS(), comment, czTranslation, ruTranslation };
   }
 
-  static fromJS(store, { id, cz, ru, archived, tags, comment }) {
-    return new PhraseModel(store, id, { cz, ru, archived, tags, comment });
+  static fromJS(store, { id, cz, ru, archived, tags, comment, czTranslation, ruTranslation }) {
+    return new PhraseModel(store, id, { cz, ru, archived, tags, comment, czTranslation, ruTranslation });
   }
 }

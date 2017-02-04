@@ -1,4 +1,5 @@
 import React, { Component, PropTypes as RPT } from 'react';
+import { Actions } from 'react-native-router-flux';
 import { Text, TouchableHighlight, StyleSheet, View } from 'react-native';
 
 export default class ListItem extends Component {
@@ -10,18 +11,17 @@ export default class ListItem extends Component {
       ru: RPT.string.isRequired
     }).isRequired,
     language: RPT.string.isRequired,
-    otherLanguage: RPT.string.isRequired,
-    selectPhrase: RPT.func.isRequired
+    otherLanguage: RPT.string.isRequired
   }
 
   render() {
-    const { phrase, language, otherLanguage, selectPhrase } = this.props;
+    const { phrase, language, otherLanguage } = this.props;
 
     return (
       <TouchableHighlight
         key={phrase.id}
         style={styles.container}
-        onPress={() => { selectPhrase(phrase.id); }}
+        onPress={() => { Actions.phrase({ data: phrase }); }}
         underlayColor="#88E2E6"
       >
         <View>
