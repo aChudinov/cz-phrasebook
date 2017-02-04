@@ -1,10 +1,14 @@
 import AddButton from './AddButton.react';
 import BackButton from './BackButton.react';
 import EditButton from './EditButton.react';
+import Loader from '../components/Loader.react';
 import React, { Component, PropTypes as RPT } from 'react';
 import Synchronize from './Synchronize.react';
+import { inject, observer } from 'mobx-react/native';
 import { StyleSheet, Text, View } from 'react-native';
 
+@inject('store')
+@observer
 export default class CommonLayout extends Component {
 
   static propTypes = {
@@ -13,7 +17,8 @@ export default class CommonLayout extends Component {
     hasBackButton: RPT.bool,
     hasSync: RPT.bool,
     noPadding: RPT.bool,
-    phrase: RPT.bool,
+    phrase: RPT.object,
+    store: RPT.object,
     title: RPT.string
   }
 
@@ -24,10 +29,12 @@ export default class CommonLayout extends Component {
   }
 
   render() {
-    const { children, hasAddButton, hasBackButton, phrase, hasSync, noPadding, title } = this.props;
+    const { children, hasAddButton, hasBackButton, phrase, store, hasSync, noPadding, title } = this.props;
 
     return (
       <View style={[styles.container, noPadding && styles.noPadding]}>
+        {store.pending && <Loader />}
+
         <View style={styles.heading}>
           {hasBackButton && <BackButton />}
           {hasSync && <Synchronize />}

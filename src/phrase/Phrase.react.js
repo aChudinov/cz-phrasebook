@@ -1,5 +1,5 @@
 import React, { Component, PropTypes as RPT } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { observer } from 'mobx-react/native';
 
 @observer
@@ -13,8 +13,8 @@ export default class Phrase extends Component {
   render() {
     const { phrase, store } = this.props;
 
-    if (!phrase || store.pending) {
-      return <ActivityIndicator animating size="large" />;
+    if (!phrase) {
+      return null;
     }
 
     const { language, otherLanguage } = store;

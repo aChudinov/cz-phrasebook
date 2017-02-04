@@ -5,7 +5,7 @@ import React, { Component, PropTypes as RPT } from 'react';
 import SectionHeader from './SectionHeader.react';
 import sortPhrases from '../lib/sortPhrases';
 import { inject, observer } from 'mobx-react/native';
-import { ActivityIndicator, ListView, StyleSheet, Text, View } from 'react-native';
+import { ListView, StyleSheet, Text, View } from 'react-native';
 
 @inject('store')
 @observer
@@ -35,14 +35,10 @@ export default class PhraseList extends Component {
   }
 
   render() {
-    const { store: { language, otherLanguage, pending, phrases } } = this.props;
+    const { store: { language, otherLanguage, phrases } } = this.props;
 
-    if (pending || !phrases) {
-      return (
-        <CommonLayout hasAddButton>
-          <ActivityIndicator animating size="large" />
-        </CommonLayout>
-      );
+    if (!phrases) {
+      return null;
     }
 
     if (!phrases.length) {
