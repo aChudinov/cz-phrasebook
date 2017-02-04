@@ -34,6 +34,6 @@ const styles = StyleSheet.create({
     height: 18,
     resizeMode: 'contain',
     position: 'relative',
-    top: 12
+    top: 10
   }
 });

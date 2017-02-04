@@ -58,7 +58,10 @@ export default class PhraseStore {
     const { text: translation } = await api.fetchTranslation(text, language);
 
     runInAction('setting translation', () => {
-      phrase.addTranslation(translation.join(', '), language);
+      if (translation) {
+        phrase.addTranslation(translation.join(', '), language);
+      }
+
       this.pending = false;
     });
   }
@@ -97,7 +100,7 @@ export default class PhraseStore {
     const phrase = this.phrases.find(p => p.id === id);
 
     phrase.update(params);
-    Actions.list();
+    Actions.phrase({ data: phrase });
   }
 
   toJS() {

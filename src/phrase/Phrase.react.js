@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
 
   translationText: {
     fontSize: 16,
-    fontStyle: 'italic'
+    fontStyle: 'italic',
+    backgroundColor: 'transparent'
   },
 
   container: {
