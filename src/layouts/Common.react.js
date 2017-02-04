@@ -1,5 +1,6 @@
+import AddButton from './AddButton.react';
+import BackButton from './BackButton.react';
 import React, { Component, PropTypes as RPT } from 'react';
-import { Actions } from 'react-native-router-flux';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default class CommonLayout extends Component {
@@ -24,15 +25,11 @@ export default class CommonLayout extends Component {
     return (
       <View style={[styles.container, noPadding && styles.noPadding]}>
         <View style={styles.heading}>
-          {hasBackButton &&
-            <Text style={styles.back} onPress={Actions.pop}>{'<'}</Text>
-          }
+          {hasBackButton && <BackButton />}
 
           <Text style={styles.headingText}>{title || 'Phrasebook'}</Text>
 
-          {hasAddButton &&
-            <Text style={styles.add} onPress={Actions.form}>+</Text>
-          }
+          {hasAddButton && <AddButton />}
         </View>
 
         {children}
@@ -65,21 +62,5 @@ const styles = StyleSheet.create({
   headingText: {
     fontWeight: 'bold',
     fontSize: 16
-  },
-
-  back: {
-    fontSize: 30,
-    position: 'absolute',
-    left: 15,
-    top: 30,
-    paddingRight: 40
-  },
-
-  add: {
-    fontSize: 30,
-    position: 'absolute',
-    paddingLeft: 40,
-    right: 15,
-    top: 30
   }
 });

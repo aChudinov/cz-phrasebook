@@ -22,7 +22,6 @@ export default class PhraseStore {
       () => this.toJS(),
       async (phrases) => {
         this.pending = true;
-        console.log('UPDATING');
         await AsyncStorage.setItem('phrases', JSON.stringify(phrases));
         this.pending = false;
       }
