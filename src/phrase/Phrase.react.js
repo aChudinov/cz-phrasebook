@@ -2,8 +2,10 @@ import Button from '../components/Button.react';
 import React, { Component, PropTypes as RPT } from 'react';
 import Spacer from '../components/Spacer.react';
 import { Actions } from 'react-native-router-flux';
-import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { observer } from 'mobx-react/native';
 
+@observer
 export default class Phrase extends Component {
 
   static propTypes = {
@@ -14,8 +16,8 @@ export default class Phrase extends Component {
   render() {
     const { phrase, store } = this.props;
 
-    if (!phrase) {
-      return null;
+    if (!phrase || store.pending) {
+      return <ActivityIndicator animating size="large" />;
     }
 
     const { language, otherLanguage, fetchTranslation } = store;
