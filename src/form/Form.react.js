@@ -69,10 +69,12 @@ export default class PhraseForm extends Component {
         <Spacer />
         <TextInput
           field={form.$('cz')}
+          hint={phrase && phrase.czTranslation}
           action={phrase ? () => { this.fetchTranslation('cz'); } : null}
         />
         <TextInput
           field={form.$('ru')}
+          hint={phrase && phrase.ruTranslation}
           action={phrase ? () => { this.fetchTranslation('ru'); } : null}
         />
         <Spacer />
