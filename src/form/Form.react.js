@@ -67,12 +67,12 @@ export default class PhraseForm extends Component {
         <TextInput
           field={form.$('cz')}
           hint={czTranslation || (phrase && phrase.czTranslation)}
-          action={() => { fetchTranslation(form.$('cz').value, 'cz'); }}
+          action={form.$('cz').value ? () => { fetchTranslation(form.$('cz').value, 'cz'); } : null}
         />
         <TextInput
           field={form.$('ru')}
           hint={ruTranslation || (phrase && phrase.ruTranslation)}
-          action={() => { fetchTranslation(form.$('ru').value, 'ru'); }}
+          action={form.$('ru').value ? () => { fetchTranslation(form.$('ru').value, 'ru'); } : null}
         />
         <Spacer />
         <Switch field={form.$('archived')} />
