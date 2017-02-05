@@ -14,8 +14,14 @@ export default observer(({ action, field, hint }) =>
         {...field.bind()}
       />
 
-      {hint &&
+      {hint && !field.error &&
         <Text style={styles.hint}>{hint}</Text>
+      }
+
+      {field.error &&
+        <Text style={[styles.hint, styles.error]}>
+          {field.error}
+        </Text>
       }
 
       {action &&
@@ -24,12 +30,6 @@ export default observer(({ action, field, hint }) =>
         </TouchableOpacity>
       }
     </View>
-
-    {field.error &&
-      <Text style={styles.error}>
-        {field.error}
-      </Text>
-    }
   </View>
 );
 
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
 
   hint: {
     position: 'absolute',
-    top: 33,
+    top: 34,
     left: 10,
     fontSize: 10,
     backgroundColor: '#FFFFFF'
