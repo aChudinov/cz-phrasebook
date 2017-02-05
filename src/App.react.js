@@ -12,7 +12,7 @@ export default () => (
   <Provider store={store}>
     <Router>
       <Scene key="root" hideNavBar>
-        <Scene key="list" component={List} title="List of phrases" initial />
+        <Scene key="list" component={List} title="List of phrases" direction="leftToRight" initial />
         <Scene key="phrase" component={props => <Phrase {...props} />} title="Show phrase" />
         <Scene key="form" component={props => <Form {...props} />} title="Add new phrase" />
       </Scene>
