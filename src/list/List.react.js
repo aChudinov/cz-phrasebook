@@ -4,8 +4,10 @@ import ListItem from './Item.react';
 import React, { Component, PropTypes as RPT } from 'react';
 import SectionHeader from './SectionHeader.react';
 import sortPhrases from '../lib/sortPhrases';
+import SwipeMenu from './SwipeMenu.react';
 import { inject, observer } from 'mobx-react/native';
 import { ListView, StyleSheet, Text, View } from 'react-native';
+import { SwipeListView } from 'react-native-swipe-list-view';
 
 @inject('store')
 @observer
@@ -51,8 +53,9 @@ export default class PhraseList extends Component {
 
     return (
       <CommonLayout hasAddButton hasSync>
-        <ListView
+        <SwipeListView
           automaticallyAdjustContentInsets={false}
+          disableRightSwipe
           dataSource={this.getSortedPhrases()}
           enableEmptySections
           initialListSize={10}
@@ -69,6 +72,10 @@ export default class PhraseList extends Component {
           renderSeparator={(sectionId, rowId) =>
             <View key={rowId} style={styles.separator} />
           }
+          renderHiddenRow={phrase =>
+            <SwipeMenu phrase={phrase} />
+          }
+          rightOpenValue={-60}
         />
       </CommonLayout>
     );

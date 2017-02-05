@@ -3519,6 +3519,10 @@ react-native-router-flux@^3.37.0:
     react-native-tabs "^1.0.9"
     react-static-container "1.0.1"
 
+react-native-swipe-list-view@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/react-native-swipe-list-view/-/react-native-swipe-list-view-0.3.3.tgz#7517d68a4392beabf54322ca44651c24cb2f99f4"
+
 react-native-tabs@^1.0.9:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/react-native-tabs/-/react-native-tabs-1.0.9.tgz#75d3c35e8b5b6970869eab282372cb32e2a782cd"

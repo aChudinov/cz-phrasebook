@@ -7,15 +7,17 @@ const base64Icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAA
 export default class EditButton extends Component {
 
   static propTypes = {
-    phrase: RPT.object
+    iconStyle: RPT.any,
+    phrase: RPT.object,
+    style: RPT.any
   }
 
   render() {
-    const { phrase } = this.props;
+    const { phrase, style, iconStyle } = this.props;
 
     return (
-      <TouchableOpacity style={styles.base} onPress={() => { Actions.form({ data: phrase }); }}>
-        <Image style={styles.image} source={{ uri: base64Icon, scale: 1 }} />
+      <TouchableOpacity style={[styles.base, !!style && style]} onPress={() => { Actions.form({ data: phrase }); }}>
+        <Image style={[styles.icon, !!iconStyle && iconStyle]} source={{ uri: base64Icon, scale: 1 }} />
       </TouchableOpacity>
     );
   }
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
     height: 80
   },
 
-  image: {
+  icon: {
     height: 18,
     resizeMode: 'contain',
     position: 'relative',
