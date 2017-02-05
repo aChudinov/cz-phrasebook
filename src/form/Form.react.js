@@ -21,6 +21,9 @@ export default class PhraseForm extends Component {
   componentDidMount() {
     const { form, phrase } = this.props;
 
+    form.clear();
+    form.reset();
+
     if (phrase) {
       form.set('value', {
         cz: phrase.cz || '',
@@ -55,27 +58,21 @@ export default class PhraseForm extends Component {
     });
   }
 
-  fetchTranslation(language) {
-    const { phrase, store: { fetchTranslation } } = this.props;
-
-    fetchTranslation(phrase, language);
-  }
-
   render() {
-    const { form, phrase } = this.props;
+    const { form, phrase, store: { czTranslation, ruTranslation, fetchTranslation } } = this.props;
 
     return (
       <ScrollView keyboardDismissMode="interactive" contentContainerStyle={{ flex: 1 }}>
         <Spacer />
         <TextInput
           field={form.$('cz')}
-          hint={phrase && phrase.czTranslation}
-          action={phrase ? () => { this.fetchTranslation('cz'); } : null}
+          hint={czTranslation || (phrase && phrase.czTranslation)}
+          action={() => { fetchTranslation(form.$('cz').value, 'cz'); }}
         />
         <TextInput
           field={form.$('ru')}
-          hint={phrase && phrase.ruTranslation}
-          action={phrase ? () => { this.fetchTranslation('ru'); } : null}
+          hint={ruTranslation || (phrase && phrase.ruTranslation)}
+          action={() => { fetchTranslation(form.$('ru').value, 'ru'); }}
         />
         <Spacer />
         <Switch field={form.$('archived')} />

@@ -10,6 +10,9 @@ export default class PhraseStore {
   @observable language = 'cz';
   @observable pending = false;
 
+  @observable czTranslation;
+  @observable ruTranslation;
+
   constructor() {
     // AsyncStorage.clear();
     this.getPhrases().then(() => {
@@ -52,14 +55,17 @@ export default class PhraseStore {
   }
 
   @action.bound
-  async fetchTranslation(phrase, language) {
+  async fetchTranslation(text, language) {
+    if (!text) {
+      return;
+    }
+
     this.pending = true;
-    const text = phrase[language];
     const { text: translation } = await api.fetchTranslation(text, language);
 
     runInAction('setting translation', () => {
       if (translation) {
-        phrase.addTranslation(translation.join(', '), language);
+        this[`${language}Translation`] = translation;
       }
 
       this.pending = false;
@@ -89,17 +95,29 @@ export default class PhraseStore {
 
   @action
   addPhrase(params) {
-    const phrase = new PhraseModel(this, uid(), params);
+    const phrase = new PhraseModel(this, uid(), {
+      ...params,
+      czTranslation: this.czTranslation,
+      ruTranslation: this.ruTranslation
+    });
 
     this.phrases.push(phrase);
-    Actions.list();
+    this.czTranslation = null;
+    this.ruTranslation = null;
+    Actions.phrase({ data: phrase });
   }
 
   @action
   updatePhrase(id, params) {
     const phrase = this.phrases.find(p => p.id === id);
 
-    phrase.update(params);
+    phrase.update({
+      ...params,
+      czTranslation: this.czTranslation,
+      ruTranslation: this.ruTranslation
+    });
+    this.czTranslation = null;
+    this.ruTranslation = null;
     Actions.phrase({ data: phrase });
   }
 
