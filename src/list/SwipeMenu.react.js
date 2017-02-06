@@ -24,7 +24,9 @@ export default class SwipeMenu extends Component {
 const styles = StyleSheet.create({
   base: {
     top: 0,
-    right: 0
+    right: 0,
+    borderLeftColor: '#DEDEDE',
+    borderLeftWidth: StyleSheet.hairlineWidth,
   },
 
   icon: {
