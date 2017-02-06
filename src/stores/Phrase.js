@@ -72,6 +72,12 @@ export default class PhraseStore {
     });
   }
 
+  @action
+  clearTranslations() {
+    this.czTranslation = null;
+    this.ruTranslation = null;
+  }
+
   @computed get otherLanguage() {
     return this.language === 'cz' ? 'ru' : 'cz';
   }
@@ -102,8 +108,7 @@ export default class PhraseStore {
     });
 
     this.phrases.push(phrase);
-    this.czTranslation = null;
-    this.ruTranslation = null;
+    this.clearTranslations();
     Actions.phrase({ data: phrase });
   }
 
@@ -116,8 +121,7 @@ export default class PhraseStore {
       czTranslation: this.czTranslation,
       ruTranslation: this.ruTranslation
     });
-    this.czTranslation = null;
-    this.ruTranslation = null;
+    this.clearTranslations();
     Actions.phrase({ data: phrase });
   }
 

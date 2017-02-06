@@ -19,10 +19,11 @@ export default class PhraseForm extends Component {
   }
 
   componentDidMount() {
-    const { form, phrase } = this.props;
+    const { form, phrase, store } = this.props;
 
     form.clear();
     form.reset();
+    store.clearTranslations();
 
     if (phrase) {
       form.set('value', {
@@ -36,10 +37,11 @@ export default class PhraseForm extends Component {
   }
 
   componentWillUnmount() {
-    const { form } = this.props;
+    const { form, store } = this.props;
 
     form.clear();
     form.reset();
+    store.clearTranslations();
   }
 
   @autobind
