@@ -9,14 +9,14 @@ export async function fetchPhrases() {
   return json;
 }
 
-export async function uploadPhrases(phrases) {
+export async function uploadPhrases(data) {
   await fetch(API_URL, {
     method: 'PUT',
     headers: {
       'Accept': 'application/json', // eslint-disable-line quote-props
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(phrases)
+    body: JSON.stringify(data)
   });
 }
 

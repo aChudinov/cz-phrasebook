@@ -1,12 +1,14 @@
 import * as api from '../lib/api';
 import PhraseModel from '../models/Phrase';
 import uid from '../lib/uid';
+import uniq from 'lodash.uniq';
 import { action, computed, observable, reaction, runInAction } from 'mobx';
 import { Actions } from 'react-native-router-flux';
 import { AsyncStorage } from 'react-native';
 
 export default class PhraseStore {
   @observable phrases = [];
+  @observable tags = [];
   @observable language = 'cz';
   @observable pending = false;
 
@@ -15,7 +17,7 @@ export default class PhraseStore {
 
   constructor() {
     // AsyncStorage.clear();
-    this.getPhrases().then(() => {
+    this.getDataFromStorage().then(() => {
       this.subscribeLocalstorageToStore();
     });
   }
@@ -23,9 +25,12 @@ export default class PhraseStore {
   subscribeLocalstorageToStore() {
     reaction(
       () => this.toJS(),
-      async (phrases) => {
+      async ({ phrases, tags }) => {
         this.pending = true;
-        await AsyncStorage.setItem('phrases', JSON.stringify(phrases));
+        await Promise.all([
+          AsyncStorage.setItem('phrases', JSON.stringify(phrases)),
+          AsyncStorage.setItem('tags', JSON.stringify(tags))
+        ]);
         this.pending = false;
       }
     );
@@ -35,6 +40,7 @@ export default class PhraseStore {
   async uploadPhrases() {
     this.pending = true;
     await api.uploadPhrases(this.toJS());
+
     runInAction('update after uploading phrases', () => {
       this.pending = false;
     });
@@ -43,13 +49,33 @@ export default class PhraseStore {
   @action.bound
   async fetchPhrases() {
     this.pending = true;
-    const phrases = await api.fetchPhrases();
+    const { phrases, tags } = await api.fetchPhrases();
 
     runInAction('update after fetching phrases', () => {
       if (phrases && phrases.length) {
         this.phrases = phrases.map(item => PhraseModel.fromJS(this, item));
       }
 
+      if (tags && tags.length) {
+        this.tags = tags;
+      }
+
+      this.pending = false;
+    });
+  }
+
+  @action
+  async getDataFromStorage() {
+    this.pending = true;
+
+    const [phrases, tags] = await Promise.all([
+      AsyncStorage.getItem('phrases'),
+      AsyncStorage.getItem('tags')
+    ]);
+
+    runInAction('update after getting phrases', () => {
+      this.phrases = (JSON.parse(phrases) || []).map(item => PhraseModel.fromJS(this, item));
+      this.tags = JSON.parse(tags);
       this.pending = false;
     });
   }
@@ -88,15 +114,12 @@ export default class PhraseStore {
   }
 
   @action
-  async getPhrases() {
-    this.pending = true;
+  setTags(tags) {
+    if (!tags) {
+      return;
+    }
 
-    const phrases = await AsyncStorage.getItem('phrases');
-
-    runInAction('update after getting phrases', () => {
-      this.phrases = (JSON.parse(phrases) || []).map(item => PhraseModel.fromJS(this, item));
-      this.pending = false;
-    });
+    this.tags = uniq([...this.tags, ...tags]);
   }
 
   @action
@@ -108,6 +131,7 @@ export default class PhraseStore {
     });
 
     this.phrases.push(phrase);
+    this.setTags(params.tags);
     this.clearTranslations();
     Actions.phrase({ data: phrase });
   }
@@ -121,11 +145,16 @@ export default class PhraseStore {
       czTranslation: this.czTranslation,
       ruTranslation: this.ruTranslation
     });
+
+    this.setTags(params.tags);
     this.clearTranslations();
     Actions.phrase({ data: phrase });
   }
 
   toJS() {
-    return this.phrases.map(phrase => phrase.toJS());
+    return {
+      phrases: this.phrases.map(phrase => phrase.toJS()),
+      tags: this.tags
+    };
   }
 }
