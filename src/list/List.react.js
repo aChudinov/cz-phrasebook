@@ -14,7 +14,8 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 export default class PhraseList extends Component {
 
   static propTypes = {
-    store: RPT.object.isRequired
+    store: RPT.object.isRequired,
+    tag: RPT.string
   }
 
   constructor() {
@@ -29,15 +30,15 @@ export default class PhraseList extends Component {
   }
 
   getSortedPhrases() {
-    const { store: { phrases, language } } = this.props;
-    const sortedPhrases = sortPhrases(phrases, language);
+    const { store: { phrases, language }, tag } = this.props;
+    const sortedPhrases = sortPhrases(phrases, language, tag);
     const { dataBlob, sectionIds, rowIds } = formatData(sortedPhrases, language);
 
     return this.dataSource.cloneWithRowsAndSections(dataBlob, sectionIds, rowIds);
   }
 
   render() {
-    const { store: { language, otherLanguage, phrases } } = this.props;
+    const { store: { language, otherLanguage, phrases }, tag } = this.props;
 
     if (!phrases) {
       return null;
@@ -52,11 +53,11 @@ export default class PhraseList extends Component {
     }
 
     return (
-      <CommonLayout hasAddButton hasSync>
+      <CommonLayout hasAddButton hasSync title={tag ? tag.charAt(0).toUpperCase() + tag.slice(1) : null}>
         <SwipeListView
           automaticallyAdjustContentInsets={false}
-          disableRightSwipe
           dataSource={this.getSortedPhrases()}
+          disableRightSwipe
           enableEmptySections
           initialListSize={10}
           renderRow={phrase =>
