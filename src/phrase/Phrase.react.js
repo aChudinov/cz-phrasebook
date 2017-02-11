@@ -10,6 +10,17 @@ export default class Phrase extends Component {
     store: RPT.object
   }
 
+  renderInflection() {
+    const { inflection: { sex } } = this.props.phrase;
+
+    return (
+      <View style={styles.container}>
+        <Text style={styles.label}>Sex</Text>
+        <Text>{sex}</Text>
+      </View>
+    );
+  }
+
   render() {
     const { phrase, store } = this.props;
 
@@ -50,6 +61,8 @@ export default class Phrase extends Component {
             </View>
           </View>
         }
+
+        {!!phrase.inflection && this.renderInflection()}
       </View>
     );
   }

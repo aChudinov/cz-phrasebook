@@ -16,7 +16,6 @@ export default class PhraseStore {
   @observable ruTranslation;
 
   constructor() {
-    // AsyncStorage.clear();
     this.getDataFromStorage().then(() => {
       this.subscribeLocalstorageToStore();
     });

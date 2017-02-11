@@ -12,6 +12,12 @@ const fields = {
     rules: 'required|string',
     bindings: 'input'
   },
+  isNoun: {
+    label: 'Noun',
+    rules: 'boolean',
+    value: false,
+    bindings: 'switch'
+  },
   archived: {
     label: 'Archived',
     rules: 'boolean',

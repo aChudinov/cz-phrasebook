@@ -29,6 +29,7 @@ export default class PhraseForm extends Component {
       form.set('value', {
         cz: phrase.cz || '',
         ru: phrase.ru || '',
+        isNoun: phrase.isNoun || false,
         archived: phrase.archived || false,
         tags: phrase.tags || [],
         comment: phrase.comment || ''
@@ -77,6 +78,7 @@ export default class PhraseForm extends Component {
           action={form.$('ru').value ? () => { fetchTranslation(form.$('ru').value, 'ru'); } : null}
         />
         <Spacer />
+        <Switch field={form.$('isNoun')} />
         <Switch field={form.$('archived')} />
         <Spacer />
         <TextInput field={form.$('comment')} />
