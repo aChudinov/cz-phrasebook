@@ -68,7 +68,7 @@ export default class PhraseList extends Component {
           renderHiddenRow={phrase =>
             <SwipeMenu phrase={phrase} />
           }
-          rightOpenValue={-60}
+          rightOpenValue={-120}
         />
       </CommonLayout>
     );

@@ -34,8 +34,6 @@ const styles = StyleSheet.create({
 
   icon: {
     height: 18,
-    resizeMode: 'contain',
-    position: 'relative',
-    top: 10
+    resizeMode: 'contain'
   }
 });
