@@ -14,7 +14,7 @@ const fields = {
   },
   archived: {
     label: 'Archived',
-    rules: 'required|boolean',
+    rules: 'boolean',
     value: false,
     bindings: 'switch'
   },
