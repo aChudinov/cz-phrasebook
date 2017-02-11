@@ -50,7 +50,7 @@ export default class ListPage extends Component {
         <TabBarIOS.Item
           title="Tags"
           renderAsOriginal
-          icon={{ uri: tagsIcon, scale: 4.5 }}
+          icon={{ uri: tagsIcon, scale: 4.2 }}
           selected={false}
           onPress={Actions.tags}
         />

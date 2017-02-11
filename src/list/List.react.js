@@ -6,7 +6,7 @@ import SectionHeader from './SectionHeader.react';
 import sortPhrases from '../lib/sortPhrases';
 import SwipeMenu from './SwipeMenu.react';
 import { inject, observer } from 'mobx-react/native';
-import { ListView, StyleSheet, Text, View } from 'react-native';
+import { ListView, StyleSheet, View } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
 @inject('store')
@@ -40,16 +40,8 @@ export default class PhraseList extends Component {
   render() {
     const { store: { language, otherLanguage, phrases }, tag } = this.props;
 
-    if (!phrases) {
-      return null;
-    }
-
-    if (!phrases.length) {
-      return (
-        <CommonLayout hasAddButton>
-          <Text style={styles.empty}>Empty</Text>
-        </CommonLayout>
-      );
+    if (!phrases || !phrases.length) {
+      return <CommonLayout hasAddButton />;
     }
 
     return (

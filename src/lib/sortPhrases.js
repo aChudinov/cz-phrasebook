@@ -1,3 +1,5 @@
+import sortBy from 'lodash.sortby';
+
 export default function (phrases, language, tag) {
   let sanitizedPhrases = phrases;
 
@@ -7,9 +9,5 @@ export default function (phrases, language, tag) {
     );
   }
 
-  return sanitizedPhrases.sort((a, b) => {
-    if (a[language] < b[language]) return -1;
-    if (a[language] > b[language]) return 1;
-    return 0;
-  });
+  return sortBy(sanitizedPhrases, [phrase => phrase[language]]);
 }

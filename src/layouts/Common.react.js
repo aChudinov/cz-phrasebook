@@ -12,7 +12,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default class CommonLayout extends Component {
 
   static propTypes = {
-    children: RPT.node.isRequired,
+    children: RPT.node,
     hasAddButton: RPT.bool,
     hasBackButton: RPT.bool,
     hasSync: RPT.bool,

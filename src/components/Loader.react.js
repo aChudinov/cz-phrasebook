@@ -1,9 +1,10 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { Bubbles } from 'react-native-loader';
+import { StyleSheet, View } from 'react-native';
 
 export default () =>
   <View style={styles.base}>
-    <ActivityIndicator animating size="large" />
+    <Bubbles size={14} color="#34C6CD" />
   </View>;
 
 const styles = StyleSheet.create({
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(0,0,0,.3)',
+    backgroundColor: 'rgba(0,0,0,.4)',
     zIndex: 1,
     justifyContent: 'center',
     alignItems: 'center'
