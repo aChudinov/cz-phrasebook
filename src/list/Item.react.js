@@ -41,7 +41,8 @@ export default class ListItem extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#FFFFFF'

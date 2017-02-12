@@ -41,7 +41,7 @@ export default class PhraseList extends Component {
     const { store: { language, otherLanguage, phrases }, tag } = this.props;
 
     if (!phrases || !phrases.length) {
-      return <CommonLayout hasAddButton />;
+      return <CommonLayout hasAddButton hasSync />;
     }
 
     return (
