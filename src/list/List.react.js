@@ -1,10 +1,11 @@
 import CommonLayout from '../layouts/Common.react';
+import Footer from './Footer.react';
 import formatData from '../lib/formatPhrasesData';
 import ListItem from './Item.react';
 import React, { Component, PropTypes as RPT } from 'react';
 import SectionHeader from './SectionHeader.react';
-import sortPhrases from '../lib/sortPhrases';
 import SwipeMenu from './SwipeMenu.react';
+import { filterByTag, sortByLanguage } from '../lib/filterPhrases';
 import { inject, observer } from 'mobx-react/native';
 import { ListView, StyleSheet, View } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
@@ -31,8 +32,11 @@ export default class PhraseList extends Component {
 
   getSortedPhrases() {
     const { store: { phrases, language }, tag } = this.props;
-    const sortedPhrases = sortPhrases(phrases, language, tag);
-    const { dataBlob, sectionIds, rowIds } = formatData(sortedPhrases, language);
+    const filteredPhrases = tag ?
+      sortByLanguage(filterByTag(phrases, tag), language) :
+      sortByLanguage(phrases, language);
+
+    const { dataBlob, sectionIds, rowIds } = formatData(filteredPhrases, language);
 
     return this.dataSource.cloneWithRowsAndSections(dataBlob, sectionIds, rowIds);
   }
@@ -51,7 +55,7 @@ export default class PhraseList extends Component {
           dataSource={this.getSortedPhrases()}
           disableRightSwipe
           enableEmptySections
-          initialListSize={1}
+          initialListSize={10}
           pageSize={1}
           removeClippedSubviews
           renderRow={phrase =>
@@ -72,6 +76,8 @@ export default class PhraseList extends Component {
           }
           rightOpenValue={-100}
         />
+
+        <Footer />
       </CommonLayout>
     );
   }

@@ -1,5 +1,6 @@
 import Inflection from './Inflection.react';
 import React, { Component, PropTypes as RPT } from 'react';
+import Spacer from '../components/Spacer.react';
 import { StyleSheet, Text, View } from 'react-native';
 import { observer } from 'mobx-react/native';
 
@@ -37,6 +38,7 @@ export default class Phrase extends Component {
             question={question}
             singular={singular[index]}
             plural={plural[index]}
+            last={index === QUESTIONS.length - 1}
           />
         )}
       </View>
@@ -83,6 +85,8 @@ export default class Phrase extends Component {
             </View>
           </View>
         }
+
+        <Spacer />
 
         {!!inflection && this.renderInflection()}
       </View>

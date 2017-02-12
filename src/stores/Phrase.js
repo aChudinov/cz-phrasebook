@@ -26,10 +26,12 @@ export default class PhraseStore {
       () => this.toJS(),
       async ({ phrases, tags }) => {
         this.pending = true;
+
         await Promise.all([
           AsyncStorage.setItem('phrases', JSON.stringify(phrases)),
           AsyncStorage.setItem('tags', JSON.stringify(tags))
         ]);
+
         this.pending = false;
       }
     );

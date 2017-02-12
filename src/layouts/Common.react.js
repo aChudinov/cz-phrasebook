@@ -53,7 +53,7 @@ export default class CommonLayout extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 49,
+    paddingBottom: 50,
     flex: 1,
     backgroundColor: '#EDEDED'
   },
