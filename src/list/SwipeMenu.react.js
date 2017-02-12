@@ -17,7 +17,7 @@ export default class SwipeMenu extends Component {
         <EditButton
           phrase={phrase}
           style={[styles.base, styles.first]}
-          iconStyle={styles.icon}
+          iconStyle={[styles.icon, styles.iconFirst]}
         />
 
         <DeleteButton
@@ -34,15 +34,20 @@ const styles = StyleSheet.create({
   base: {
     top: 0,
     right: 0,
+    width: 50,
     borderLeftColor: '#DEDEDE',
     borderLeftWidth: StyleSheet.hairlineWidth,
   },
 
   first: {
-    right: 60
+    right: 50
+  },
+
+  iconFirst: {
+    top: 16
   },
 
   icon: {
-    top: 20
+    top: 12
   }
 });

@@ -852,7 +852,7 @@ function OnSklonuj(value, zivotne, rod) {
 
   PrefRod = "0";
 
-  var sex;
+  var kind;
   var singular = [];
   var plural = [];
 
@@ -873,7 +873,7 @@ function OnSklonuj(value, zivotne, rod) {
     if( astrTvar[0].charAt(0) == '?' )
       astrTvar[0] = '?';
 
-    sex = astrTvar[0];
+    kind = astrTvar[0];
 
     singular[0] = astrTvar[1];
     singular[1] = astrTvar[2];
@@ -893,7 +893,7 @@ function OnSklonuj(value, zivotne, rod) {
   }
 
   return {
-    sex: sex,
+    kind: kind,
     singular: singular,
     plural: plural
   };

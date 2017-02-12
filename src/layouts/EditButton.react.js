@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   base: {
     position: 'absolute',
     right: 0,
-    top: 30,
+    top: 40,
     width: 60,
     height: 80
   },

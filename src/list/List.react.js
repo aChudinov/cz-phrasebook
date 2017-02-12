@@ -51,7 +51,9 @@ export default class PhraseList extends Component {
           dataSource={this.getSortedPhrases()}
           disableRightSwipe
           enableEmptySections
-          initialListSize={10}
+          initialListSize={1}
+          pageSize={1}
+          removeClippedSubviews
           renderRow={phrase =>
             <ListItem
               language={language}
@@ -68,7 +70,7 @@ export default class PhraseList extends Component {
           renderHiddenRow={phrase =>
             <SwipeMenu phrase={phrase} />
           }
-          rightOpenValue={-120}
+          rightOpenValue={-100}
         />
       </CommonLayout>
     );

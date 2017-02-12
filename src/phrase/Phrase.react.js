@@ -1,6 +1,15 @@
+import Inflection from './Inflection.react';
 import React, { Component, PropTypes as RPT } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { observer } from 'mobx-react/native';
+
+const COLORS = {
+  ž: '#FCE5F2',
+  m: '#E5ECFA',
+  s: '#D9FAD0'
+};
+
+const QUESTIONS = ['Kdo/Co?', 'Koho/čeho?', 'Komu/čemu?', 'Koho/Co?', 'Oslovení', 'O kom/čem?', 'S kým/čím?'];
 
 @observer
 export default class Phrase extends Component {
@@ -11,29 +20,42 @@ export default class Phrase extends Component {
   }
 
   renderInflection() {
-    const { inflection: { sex } } = this.props.phrase;
+    const { inflection: { singular, plural } } = this.props.phrase;
 
     return (
       <View style={styles.container}>
-        <Text style={styles.label}>Sex</Text>
-        <Text>{sex}</Text>
+        <Inflection
+          question=""
+          singular="Singular"
+          plural="Plural"
+          bold
+        />
+
+        {QUESTIONS.map((question, index) =>
+          <Inflection
+            key={question}
+            question={question}
+            singular={singular[index]}
+            plural={plural[index]}
+          />
+        )}
       </View>
     );
   }
 
   render() {
-    const { phrase, store } = this.props;
+    const { phrase, store: { language, otherLanguage } } = this.props;
 
     if (!phrase) {
       return null;
     }
 
-    const { language, otherLanguage } = store;
+    const { inflection } = phrase;
     const translation = phrase[`${language}Translation`];
 
     return (
       <View>
-        <View style={styles.translation}>
+        <View style={[styles.translation, inflection && inflection.kind && { backgroundColor: COLORS[inflection.kind] }]}>
           <Text style={styles.translationText}>{phrase[otherLanguage]}</Text>
         </View>
 
@@ -62,7 +84,7 @@ export default class Phrase extends Component {
           </View>
         }
 
-        {!!phrase.inflection && this.renderInflection()}
+        {!!inflection && this.renderInflection()}
       </View>
     );
   }
@@ -71,8 +93,7 @@ export default class Phrase extends Component {
 const styles = StyleSheet.create({
   translation: {
     alignItems: 'center',
-    marginTop: 25,
-    marginBottom: 25
+    paddingVertical: 25
   },
 
   translationText: {

@@ -7,7 +7,9 @@ const base64Icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGIAAACACAYAAA
 export default class DeleteButton extends Component {
 
   static propTypes = {
-    phrase: RPT.object
+    iconStyle: RPT.any,
+    phrase: RPT.object,
+    style: RPT.any
   }
 
   @autobind
@@ -23,9 +25,11 @@ export default class DeleteButton extends Component {
   }
 
   render() {
+    const { style, iconStyle } = this.props;
+
     return (
-      <TouchableOpacity style={styles.base} onPress={this.handleClick}>
-        <Image style={styles.icon} source={{ uri: base64Icon, scale: 1 }} />
+      <TouchableOpacity style={[styles.base, !!style && style]} onPress={this.handleClick}>
+        <Image style={[styles.icon, !!iconStyle && iconStyle]} source={{ uri: base64Icon, scale: 1 }} />
       </TouchableOpacity>
     );
   }
