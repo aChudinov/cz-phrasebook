@@ -113,6 +113,7 @@ export default class PhraseStore {
 
   @action.bound
   setLanguage(language) {
+    this.saveScroll(0);
     this.language = language;
   }
 

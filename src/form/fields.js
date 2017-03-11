@@ -37,19 +37,21 @@ const fields = {
 };
 
 class PhrasebookForm extends MobxReactForm {
-  bindings: () => ({
-    input: {
-      value: 'value',
-      onChange: 'onChangeText',
-      onFocus: 'onFocus',
-      onBlur: 'onBlur'
-    },
-    switch: {
-      value: 'value',
-      onChange: 'onValueChange',
-      disabled: 'disabled'
-    }
-  })
+  bindings() {
+    return {
+      input: {
+        value: 'value',
+        onChange: 'onChangeText',
+        onFocus: 'onFocus',
+        onBlur: 'onBlur'
+      },
+      switch: {
+        value: 'value',
+        onChange: 'onValueChange',
+        disabled: 'disabled'
+      }
+    };
+  }
 }
 
 export default new PhrasebookForm({ fields }, { plugins: { dvr: validatorjs } });
