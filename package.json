@@ -21,7 +21,7 @@
 		"react-native-router-flux": "^3.38.0",
 		"react-native-swipe-list-view": "^0.4.0",
 		"react-native-tag-input": "^0.0.14",
-		"validatorjs": "^3.11.0"
+		"validatorjs": "git+https://git@github.com/aChudinov/validatorjs.git"
 	},
 	"devDependencies": {
 		"babel-eslint": "^7.1.1",

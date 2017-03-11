@@ -4336,9 +4336,9 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "~1.0.0"
     spdx-expression-parse "~1.0.0"
 
-validatorjs@^3.11.0:
+"validatorjs@git+https://git@github.com/aChudinov/validatorjs.git":
   version "3.11.0"
-  resolved "https://registry.yarnpkg.com/validatorjs/-/validatorjs-3.11.0.tgz#d8177e62e663e4e06a6517540dfe1beabba2dfe5"
+  resolved "git+https://git@github.com/aChudinov/validatorjs.git#ed7abbba42d018f6f4709add9adf2c6cfbcc9bf9"
 
 vary@~1.0.1:
   version "1.0.1"

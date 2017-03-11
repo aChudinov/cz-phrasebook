@@ -12,6 +12,8 @@ export default class PhraseStore {
   @observable language = 'cz';
   @observable pending = false;
 
+  @observable listScroll = 0;
+
   @observable czTranslation;
   @observable ruTranslation;
 
@@ -112,6 +114,11 @@ export default class PhraseStore {
   @action.bound
   setLanguage(language) {
     this.language = language;
+  }
+
+  @action.bound
+  saveScroll(scroll) {
+    this.listScroll = scroll;
   }
 
   @action

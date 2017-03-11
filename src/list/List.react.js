@@ -5,6 +5,7 @@ import ListItem from './Item.react';
 import React, { Component, PropTypes as RPT } from 'react';
 import SectionHeader from './SectionHeader.react';
 import SwipeMenu from './SwipeMenu.react';
+import { debounce } from 'core-decorators';
 import { filterByTag, sortByLanguage } from '../lib/filterPhrases';
 import { inject, observer } from 'mobx-react/native';
 import { ListView, StyleSheet, View } from 'react-native';
@@ -30,6 +31,14 @@ export default class PhraseList extends Component {
     });
   }
 
+  componentDidMount() {
+    const { store: { listScroll } } = this.props;
+
+    if (this.scrollView) {
+      this.scrollView.scrollTo({ x: 0, y: listScroll || 0, animated: false });
+    }
+  }
+
   getSortedPhrases() {
     const { store: { phrases, language }, tag } = this.props;
     const filteredPhrases = tag ?
@@ -39,6 +48,13 @@ export default class PhraseList extends Component {
     const { dataBlob, sectionIds, rowIds } = formatData(filteredPhrases, language);
 
     return this.dataSource.cloneWithRowsAndSections(dataBlob, sectionIds, rowIds);
+  }
+
+  @debounce(300)
+  handleScroll(event) {
+    const { store: { saveScroll } } = this.props;
+
+    saveScroll(event.nativeEvent.contentOffset.y);
   }
 
   render() {
@@ -56,6 +72,8 @@ export default class PhraseList extends Component {
           disableRightSwipe
           enableEmptySections
           initialListSize={10}
+          listViewRef={(ref) => { this.scrollView = ref; }}
+          onScroll={(event) => { event.persist(); this.handleScroll(event); }}
           pageSize={1}
           removeClippedSubviews
           renderRow={phrase =>
