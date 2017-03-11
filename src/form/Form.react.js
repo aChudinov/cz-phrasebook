@@ -1,4 +1,5 @@
 import Button from '../components/Button.react';
+import Label from '../components/Label.react';
 import React, { Component, PropTypes as RPT } from 'react';
 import Spacer from '../components/Spacer.react';
 import Switch from '../components/Switch.react';
@@ -66,7 +67,7 @@ export default class PhraseForm extends Component {
 
     return (
       <ScrollView keyboardDismissMode="interactive" contentContainerStyle={{ flex: 1 }}>
-        <Spacer />
+        <Label text="Translations" />
         <TextInput
           field={form.$('cz')}
           hint={czTranslation || (phrase && phrase.czTranslation)}
@@ -77,10 +78,12 @@ export default class PhraseForm extends Component {
           hint={ruTranslation || (phrase && phrase.ruTranslation)}
           action={form.$('ru').value ? () => { fetchTranslation(form.$('ru').value, 'ru'); } : null}
         />
-        <Spacer />
+
+        <Label text="Options" />
         <Switch field={form.$('isNoun')} />
         <Switch field={form.$('archived')} />
-        <Spacer />
+
+        <Label text="Other" />
         <TextInput field={form.$('comment')} />
         <TagInput field={form.$('tags')} />
         <Spacer />

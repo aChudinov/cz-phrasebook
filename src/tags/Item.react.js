@@ -20,7 +20,7 @@ export default class ListItem extends Component {
       >
         <View>
           <Text style={styles.tag}>
-            {tag.charAt(0).toUpperCase() + tag.slice(1)}
+            {tag ? tag.charAt(0).toUpperCase() + tag.slice(1) : ''}
           </Text>
         </View>
       </TouchableHighlight>

@@ -23,7 +23,6 @@ export default class Button extends Component {
   }
 }
 
-
 const styles = StyleSheet.create({
   button: {
     height: 50,
