@@ -4,6 +4,12 @@ export function sortByLanguage(phrases, language) {
   return sortBy(phrases, [phrase => phrase[language]]);
 }
 
-export function filterByTag(phrases, tag) {
-  return phrases.filter(phrase => phrase.tags.indexOf(tag) > -1);
+export function filter(phrases, tag, archived) {
+  return phrases.filter((phrase) => {
+    if (tag) {
+      return phrase.tags.includes(tag) && phrase.archived === archived;
+    }
+
+    return phrase.archived === archived;
+  });
 }

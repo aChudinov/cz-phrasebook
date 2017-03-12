@@ -6,7 +6,7 @@ import React, { Component, PropTypes as RPT } from 'react';
 import SectionHeader from './SectionHeader.react';
 import SwipeMenu from './SwipeMenu.react';
 import { debounce } from 'core-decorators';
-import { filterByTag, sortByLanguage } from '../lib/filterPhrases';
+import { filter, sortByLanguage } from '../lib/filterPhrases';
 import { inject, observer } from 'mobx-react/native';
 import { ListView, StyleSheet, View } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
@@ -17,6 +17,7 @@ import { SwipeListView } from 'react-native-swipe-list-view';
   language: uiStore.language,
   otherLanguage: uiStore.otherLanguage,
   saveScroll: uiStore.saveScroll,
+  archived: uiStore.archived,
   tag: uiStore.tag
 }))
 @observer
@@ -28,6 +29,7 @@ export default class PhraseList extends Component {
     otherLanguage: RPT.string.isRequired,
     phrases: RPT.object.isRequired,
     saveScroll: RPT.func.isRequired,
+    archived: RPT.bool.isRequired,
     tag: RPT.string
   }
 
@@ -51,10 +53,8 @@ export default class PhraseList extends Component {
   }
 
   getSortedPhrases() {
-    const { phrases, language, tag } = this.props;
-    const filteredPhrases = tag ?
-      sortByLanguage(filterByTag(phrases, tag), language) :
-      sortByLanguage(phrases, language);
+    const { phrases, language, archived, tag } = this.props;
+    const filteredPhrases = sortByLanguage(filter(phrases, tag, archived), language);
 
     const { dataBlob, sectionIds, rowIds } = formatData(filteredPhrases, language);
 

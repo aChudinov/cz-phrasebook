@@ -21,8 +21,8 @@ export default class Synchronize extends Component {
     return (
       <TouchableOpacity
         style={styles.base}
-        onPress={() => { Vibration.vibrate([0]); uploadPhrases(); }}
-        onLongPress={() => { Vibration.vibrate([0, 1000]); fetchPhrases(); }}
+        onPress={uploadPhrases}
+        onLongPress={() => { Vibration.vibrate([0]); fetchPhrases(); }}
       >
         <Image style={styles.image} source={{ uri: base64Icon, scale: 1 }} />
       </TouchableOpacity>

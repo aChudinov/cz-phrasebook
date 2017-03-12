@@ -7,6 +7,7 @@ export default class UiStore {
   @observable tag = null;
   @observable listScroll = 0;
   @observable pending = false;
+  @observable archived = false;
   @observable czTranslation;
   @observable ruTranslation;
 
@@ -41,6 +42,11 @@ export default class UiStore {
   selectTag(tag) {
     this.tag = tag;
     Actions.list();
+  }
+
+  @action.bound
+  showArchived() {
+    this.archived = !this.archived;
   }
 
   @action.bound

@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    fontSize: 16,
+    fontSize: 15,
     height: 50,
     backgroundColor: '#FFFFFF',
     padding: 10
