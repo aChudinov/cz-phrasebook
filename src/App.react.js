@@ -2,15 +2,17 @@ import Form from './form/Page.react';
 import List from './list/Page.react';
 import Phrase from './phrase/Page.react';
 import PhraseStore from './stores/Phrase';
+import UiStore from './stores/Ui';
 import React from 'react';
 import Tags from './tags/Page.react';
 import { Provider } from 'mobx-react/native';
 import { Scene, Router } from 'react-native-router-flux';
 
-const store = new PhraseStore();
+const phraseStore = new PhraseStore();
+const uiStore = new UiStore();
 
 export default () => (
-  <Provider store={store}>
+  <Provider store={phraseStore} phraseStore={phraseStore} uiStore={uiStore}>
     <Router>
       <Scene key="root" hideNavBar>
         <Scene key="list" component={props => <List {...props} />} title="List of phrases" direction="leftToRight" initial />

@@ -6,12 +6,14 @@ import { Actions } from 'react-native-router-flux';
 import { inject, observer } from 'mobx-react/native';
 import { ListView, StyleSheet, View } from 'react-native';
 
-@inject('store')
+@inject(({ phraseStore }) => ({
+  tags: phraseStore.tags
+}))
 @observer
 export default class PhraseList extends Component {
 
   static propTypes = {
-    store: RPT.object.isRequired
+    tags: RPT.object.isRequired
   }
 
   constructor() {
@@ -21,7 +23,7 @@ export default class PhraseList extends Component {
   }
 
   getTagsList() {
-    const { store: { tags } } = this.props;
+    const { tags } = this.props;
     const sortedTags = tags.toJS().sort((a, b) => {
       if (a < b) return -1;
       if (a > b) return 1;

@@ -17,7 +17,7 @@ export default class Phrase extends Component {
 
   static propTypes = {
     phrase: RPT.object,
-    store: RPT.object
+    uiStore: RPT.object
   }
 
   renderInflection() {
@@ -46,7 +46,7 @@ export default class Phrase extends Component {
   }
 
   render() {
-    const { phrase, store: { otherLanguage } } = this.props;
+    const { phrase, uiStore: { otherLanguage } } = this.props;
 
     if (!phrase) {
       return null;

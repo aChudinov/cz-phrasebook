@@ -11,12 +11,22 @@ import { inject, observer } from 'mobx-react/native';
 import { ListView, StyleSheet, View } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
-@inject('store')
+@inject(({ phraseStore, uiStore }) => ({
+  phrases: phraseStore.phrases,
+  listScroll: uiStore.listScroll,
+  language: uiStore.language,
+  otherLanguage: uiStore.otherLanguage,
+  saveScroll: uiStore.saveScroll
+}))
 @observer
 export default class PhraseList extends Component {
 
   static propTypes = {
-    store: RPT.object.isRequired,
+    language: RPT.string.isRequired,
+    listScroll: RPT.number.isRequired,
+    otherLanguage: RPT.string.isRequired,
+    phrases: RPT.object.isRequired,
+    saveScroll: RPT.func.isRequired,
     tag: RPT.string
   }
 
@@ -32,7 +42,7 @@ export default class PhraseList extends Component {
   }
 
   componentDidMount() {
-    const { store: { listScroll } } = this.props;
+    const { listScroll } = this.props;
 
     if (this.scrollView) {
       this.scrollView.scrollTo({ x: 0, y: listScroll || 0, animated: false });
@@ -40,7 +50,7 @@ export default class PhraseList extends Component {
   }
 
   getSortedPhrases() {
-    const { store: { phrases, language }, tag } = this.props;
+    const { phrases, language, tag } = this.props;
     const filteredPhrases = tag ?
       sortByLanguage(filterByTag(phrases, tag), language) :
       sortByLanguage(phrases, language);
@@ -52,13 +62,13 @@ export default class PhraseList extends Component {
 
   @debounce(300)
   handleScroll(event) {
-    const { store: { saveScroll } } = this.props;
+    const { saveScroll } = this.props;
 
     saveScroll(event.nativeEvent.contentOffset.y);
   }
 
   render() {
-    const { store: { language, otherLanguage, phrases }, tag } = this.props;
+    const { language, otherLanguage, phrases, tag } = this.props;
 
     if (!phrases || !phrases.length) {
       return <CommonLayout hasAddButton hasSync />;

@@ -3,17 +3,17 @@ import Phrase from './Phrase.react';
 import React, { Component, PropTypes as RPT } from 'react';
 import { inject, observer } from 'mobx-react/native';
 
-@inject('store')
+@inject('uiStore')
 @observer
 export default class PhrasePage extends Component {
 
   static propTypes = {
-    store: RPT.object,
+    uiStore: RPT.object,
     data: RPT.object
   }
 
   render() {
-    const { data, store } = this.props;
+    const { data, uiStore } = this.props;
 
     return (
       <CommonLayout
@@ -21,9 +21,9 @@ export default class PhrasePage extends Component {
         hasEditButton
         noPadding
         phrase={data}
-        title={data[store.language]}
+        title={data[uiStore.language]}
       >
-        <Phrase phrase={data} store={store} />
+        <Phrase phrase={data} uiStore={uiStore} />
       </CommonLayout>
     );
   }

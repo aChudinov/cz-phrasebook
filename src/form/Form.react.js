@@ -9,22 +9,34 @@ import { autobind } from 'core-decorators';
 import { inject, observer } from 'mobx-react/native';
 import { ScrollView } from 'react-native';
 
-@inject('store')
+@inject(({ phraseStore, uiStore }) => ({
+  addPhrase: phraseStore.addPhrase,
+  clearTranslations: uiStore.clearTranslations,
+  czTranslation: uiStore.czTranslation,
+  fetchTranslation: uiStore.fetchTranslation,
+  ruTranslation: uiStore.ruTranslation,
+  updatePhrase: phraseStore.updatePhrase
+}))
 @observer
 export default class PhraseForm extends Component {
 
   static propTypes = {
+    addPhrase: RPT.func.isRequired,
+    clearTranslations: RPT.func.isRequired,
+    czTranslation: RPT.string,
+    fetchTranslation: RPT.func.isRequired,
     form: RPT.object.isRequired,
     phrase: RPT.object,
-    store: RPT.object.isRequired
+    ruTranslation: RPT.string,
+    updatePhrase: RPT.func.isRequired
   }
 
   componentDidMount() {
-    const { form, phrase, store } = this.props;
+    const { form, phrase, clearTranslations } = this.props;
 
     form.clear();
     form.reset();
-    store.clearTranslations();
+    clearTranslations();
 
     if (phrase) {
       form.set('value', {
@@ -38,24 +50,16 @@ export default class PhraseForm extends Component {
     }
   }
 
-  componentWillUnmount() {
-    const { form, store } = this.props;
-
-    form.clear();
-    form.reset();
-    store.clearTranslations();
-  }
-
   @autobind
   onSubmit() {
-    const { form, phrase, store } = this.props;
+    const { addPhrase, form, phrase, updatePhrase } = this.props;
 
     form.submit({
       onSuccess: (successForm) => {
         if (phrase && phrase.id) {
-          store.updatePhrase(phrase.id, successForm.values());
+          updatePhrase(phrase.id, successForm.values());
         } else {
-          store.addPhrase(successForm.values());
+          addPhrase(successForm.values());
         }
       },
       onError: (errorForm) => { errorForm.invalidate('This is a generic error message!'); }
@@ -63,7 +67,7 @@ export default class PhraseForm extends Component {
   }
 
   render() {
-    const { form, phrase, store: { czTranslation, ruTranslation, fetchTranslation } } = this.props;
+    const { form, phrase, czTranslation, ruTranslation, fetchTranslation } = this.props;
 
     return (
       <ScrollView keyboardDismissMode="interactive" contentContainerStyle={{ flex: 1 }}>

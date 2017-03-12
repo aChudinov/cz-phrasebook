@@ -2,20 +2,14 @@ import * as api from '../lib/api';
 import PhraseModel from '../models/Phrase';
 import uid from '../lib/uid';
 import uniq from 'lodash.uniq';
-import { action, computed, observable, reaction, runInAction } from 'mobx';
+import { action, observable, reaction, runInAction } from 'mobx';
 import { Actions } from 'react-native-router-flux';
 import { AsyncStorage } from 'react-native';
 
 export default class PhraseStore {
   @observable phrases = [];
   @observable tags = [];
-  @observable language = 'cz';
   @observable pending = false;
-
-  @observable listScroll = 0;
-
-  @observable czTranslation;
-  @observable ruTranslation;
 
   constructor() {
     this.getDataFromStorage().then(() => {
@@ -83,44 +77,6 @@ export default class PhraseStore {
     });
   }
 
-  @action.bound
-  async fetchTranslation(text, language) {
-    if (!text) {
-      return;
-    }
-
-    this.pending = true;
-    const { text: translation } = await api.fetchTranslation(text, language);
-
-    runInAction('setting translation', () => {
-      if (translation) {
-        this[`${language}Translation`] = translation;
-      }
-
-      this.pending = false;
-    });
-  }
-
-  @action
-  clearTranslations() {
-    this.czTranslation = null;
-    this.ruTranslation = null;
-  }
-
-  @computed get otherLanguage() {
-    return this.language === 'cz' ? 'ru' : 'cz';
-  }
-
-  @action.bound
-  setLanguage(language) {
-    this.language = language;
-  }
-
-  @action.bound
-  saveScroll(scroll) {
-    this.listScroll = scroll;
-  }
-
   @action
   setTags(tags) {
     if (!tags) {
@@ -136,18 +92,16 @@ export default class PhraseStore {
 
     this.phrases.push(phrase);
     this.setTags(params.tags);
-    this.clearTranslations();
     Actions.phrase({ data: phrase });
   }
 
-  @action
+  @action.bound
   updatePhrase(id, params) {
     const phrase = this.phrases.find(p => p.id === id);
 
     phrase.update(params);
 
     this.setTags(params.tags);
-    this.clearTranslations();
     Actions.phrase({ data: phrase });
   }
 

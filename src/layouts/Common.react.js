@@ -7,7 +7,10 @@ import Synchronize from './Synchronize.react';
 import { inject, observer } from 'mobx-react/native';
 import { StyleSheet, Text, View } from 'react-native';
 
-@inject('store')
+@inject(({ phraseStore, uiStore }) => ({
+  pendingPhrase: phraseStore.pending,
+  pendingTranslation: uiStore.pending
+}))
 @observer
 export default class CommonLayout extends Component {
 
@@ -18,7 +21,8 @@ export default class CommonLayout extends Component {
     hasSync: RPT.bool,
     noPadding: RPT.bool,
     phrase: RPT.object,
-    store: RPT.object,
+    pendingPhrase: RPT.bool.isRequired,
+    pendingTranslation: RPT.bool.isRequired,
     title: RPT.string
   }
 
@@ -29,11 +33,11 @@ export default class CommonLayout extends Component {
   }
 
   render() {
-    const { children, hasAddButton, hasBackButton, phrase, store, hasSync, noPadding, title } = this.props;
+    const { children, hasAddButton, hasBackButton, phrase, pendingPhrase, pendingTranslation, hasSync, noPadding, title } = this.props;
 
     return (
       <View style={[styles.container, noPadding && styles.noPadding]}>
-        {store.pending && <Loader />}
+        {(pendingPhrase || pendingTranslation) && <Loader />}
 
         <View style={styles.heading}>
           {hasBackButton && <BackButton />}
