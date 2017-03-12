@@ -16,7 +16,8 @@ import { SwipeListView } from 'react-native-swipe-list-view';
   listScroll: uiStore.listScroll,
   language: uiStore.language,
   otherLanguage: uiStore.otherLanguage,
-  saveScroll: uiStore.saveScroll
+  saveScroll: uiStore.saveScroll,
+  tag: uiStore.tag
 }))
 @observer
 export default class PhraseList extends Component {

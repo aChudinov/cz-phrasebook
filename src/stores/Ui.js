@@ -1,8 +1,10 @@
 import * as api from '../lib/api';
+import { Actions } from 'react-native-router-flux';
 import { action, computed, observable, runInAction } from 'mobx';
 
 export default class UiStore {
   @observable language = 'cz';
+  @observable tag = null;
   @observable listScroll = 0;
   @observable pending = false;
   @observable czTranslation;
@@ -33,6 +35,12 @@ export default class UiStore {
   @action.bound
   setLanguage(language) {
     this.language = language;
+  }
+
+  @action.bound
+  selectTag(tag) {
+    this.tag = tag;
+    Actions.list();
   }
 
   @action.bound

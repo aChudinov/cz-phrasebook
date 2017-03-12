@@ -1,21 +1,21 @@
 import React, { Component, PropTypes as RPT } from 'react';
-import { Actions } from 'react-native-router-flux';
 import { Text, TouchableHighlight, StyleSheet, View } from 'react-native';
 
 export default class ListItem extends Component {
 
   static propTypes = {
+    selectTag: RPT.func.isRequired,
     tag: RPT.string.isRequired
   }
 
   render() {
-    const { tag } = this.props;
+    const { selectTag, tag } = this.props;
 
     return (
       <TouchableHighlight
         key={tag}
         style={styles.container}
-        onPress={() => { Actions.list({ data: tag }); }}
+        onPress={() => selectTag(tag)}
         underlayColor="#88E2E6"
       >
         <View>

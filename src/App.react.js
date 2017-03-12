@@ -15,7 +15,7 @@ export default () => (
   <Provider store={phraseStore} phraseStore={phraseStore} uiStore={uiStore}>
     <Router>
       <Scene key="root" hideNavBar>
-        <Scene key="list" component={props => <List {...props} />} title="List of phrases" direction="leftToRight" initial />
+        <Scene key="list" component={List} title="List of phrases" direction="leftToRight" initial />
         <Scene key="phrase" component={props => <Phrase {...props} />} title="Show phrase" />
         <Scene key="form" component={props => <Form {...props} />} title="Add new phrase" />
         <Scene key="tags" component={Tags} title="Tags list" />

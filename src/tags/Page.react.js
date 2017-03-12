@@ -2,17 +2,18 @@ import Button from '../components/Button.react';
 import CommonLayout from '../layouts/Common.react';
 import React, { Component, PropTypes as RPT } from 'react';
 import ListItem from './Item.react';
-import { Actions } from 'react-native-router-flux';
 import { inject, observer } from 'mobx-react/native';
 import { ListView, StyleSheet, View } from 'react-native';
 
-@inject(({ phraseStore }) => ({
+@inject(({ phraseStore, uiStore }) => ({
+  selectTag: uiStore.selectTag,
   tags: phraseStore.tags
 }))
 @observer
 export default class PhraseList extends Component {
 
   static propTypes = {
+    selectTag: RPT.func.isRequired,
     tags: RPT.object.isRequired
   }
 
@@ -34,6 +35,8 @@ export default class PhraseList extends Component {
   }
 
   render() {
+    const { selectTag } = this.props;
+
     return (
       <CommonLayout hasBackButton>
         <ListView
@@ -41,13 +44,13 @@ export default class PhraseList extends Component {
           enableEmptySections
           dataSource={this.getTagsList()}
           initialListSize={20}
-          renderRow={tag => <ListItem tag={tag} />}
+          renderRow={tag => <ListItem tag={tag} selectTag={selectTag} />}
           renderSeparator={(sectionId, rowId) =>
             <View key={rowId} style={styles.separator} />
           }
         />
 
-        <Button text="Reset" onPress={Actions.list} />
+        <Button text="Reset" onPress={() => selectTag(null)} />
       </CommonLayout>
     );
   }
