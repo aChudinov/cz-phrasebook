@@ -1,3 +1,4 @@
+/* eslint-disable */
 export default function uid() {
   let random;
   let uuid = '';

@@ -70,12 +70,12 @@ export default class PhraseForm extends Component {
         <Label text="Translations" />
         <TextInput
           field={form.$('cz')}
-          hint={czTranslation || (phrase && phrase.czTranslation)}
+          hint={czTranslation}
           action={form.$('cz').value ? () => { fetchTranslation(form.$('cz').value, 'cz'); } : null}
         />
         <TextInput
           field={form.$('ru')}
-          hint={ruTranslation || (phrase && phrase.ruTranslation)}
+          hint={ruTranslation}
           action={form.$('ru').value ? () => { fetchTranslation(form.$('ru').value, 'ru'); } : null}
         />
 

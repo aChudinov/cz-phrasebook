@@ -46,27 +46,19 @@ export default class Phrase extends Component {
   }
 
   render() {
-    const { phrase, store: { language, otherLanguage } } = this.props;
+    const { phrase, store: { otherLanguage } } = this.props;
 
     if (!phrase) {
       return null;
     }
 
     const { inflection } = phrase;
-    const translation = phrase[`${language}Translation`];
 
     return (
       <View>
         <View style={[styles.translation, inflection && inflection.kind && { backgroundColor: COLORS[inflection.kind] }]}>
           <Text style={styles.translationText}>{phrase[otherLanguage]}</Text>
         </View>
-
-        {!!translation &&
-          <View style={styles.container}>
-            <Text style={styles.label}>Translation</Text>
-            <Text>{translation}</Text>
-          </View>
-        }
 
         {!!phrase.comment &&
           <View style={styles.container}>

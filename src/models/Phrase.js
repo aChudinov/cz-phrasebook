@@ -12,10 +12,8 @@ export default class PhraseModel {
   @observable archived;
   @observable tags;
   @observable comment;
-  @observable czTranslation;
-  @observable ruTranslation;
 
-  constructor(store, id, { cz, ru, isNoun, archived, tags, comment, czTranslation, ruTranslation }) {
+  constructor(store, id, { cz, ru, isNoun, archived, tags, comment }) {
     this.store = store;
     this.id = id;
 
@@ -25,8 +23,6 @@ export default class PhraseModel {
     this.archived = archived;
     this.tags = tags;
     this.comment = comment;
-    this.czTranslation = czTranslation;
-    this.ruTranslation = ruTranslation;
 
     this.inflection = isNoun ? inflection(cz) : null;
   }
@@ -48,9 +44,9 @@ export default class PhraseModel {
   }
 
   toJS() {
-    const { id, cz, ru, isNoun, archived, tags, comment, czTranslation, ruTranslation } = this;
+    const { id, cz, ru, isNoun, archived, tags, comment } = this;
 
-    return { id, cz, ru, isNoun, archived, tags: tags.toJS(), comment, czTranslation, ruTranslation };
+    return { id, cz, ru, isNoun, archived, tags: tags.toJS(), comment };
   }
 
   static fromJS(store, params) {

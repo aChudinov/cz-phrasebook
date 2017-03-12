@@ -1,9 +1,9 @@
-import React from 'react';
 import Form from './form/Page.react';
 import List from './list/Page.react';
 import Phrase from './phrase/Page.react';
-import Tags from './tags/Page.react';
 import PhraseStore from './stores/Phrase';
+import React from 'react';
+import Tags from './tags/Page.react';
 import { Provider } from 'mobx-react/native';
 import { Scene, Router } from 'react-native-router-flux';
 

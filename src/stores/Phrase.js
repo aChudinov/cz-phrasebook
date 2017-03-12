@@ -113,7 +113,6 @@ export default class PhraseStore {
 
   @action.bound
   setLanguage(language) {
-    this.saveScroll(0);
     this.language = language;
   }
 
@@ -133,11 +132,7 @@ export default class PhraseStore {
 
   @action
   addPhrase(params) {
-    const phrase = new PhraseModel(this, uid(), {
-      ...params,
-      czTranslation: this.czTranslation,
-      ruTranslation: this.ruTranslation
-    });
+    const phrase = new PhraseModel(this, uid(), params);
 
     this.phrases.push(phrase);
     this.setTags(params.tags);
@@ -149,11 +144,7 @@ export default class PhraseStore {
   updatePhrase(id, params) {
     const phrase = this.phrases.find(p => p.id === id);
 
-    phrase.update({
-      ...params,
-      czTranslation: this.czTranslation,
-      ruTranslation: this.ruTranslation
-    });
+    phrase.update(params);
 
     this.setTags(params.tags);
     this.clearTranslations();

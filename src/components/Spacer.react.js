@@ -1,4 +1,10 @@
-import React from 'react';
+import React, { PropTypes as RPT } from 'react';
 import { View } from 'react-native';
 
-export default ({ thin }) => <View style={{ height: thin ? 10 : 25 }} />;
+const Spacer = ({ thin }) => <View style={{ height: thin ? 10 : 25 }} />;
+
+Spacer.propTypes = {
+  thin: RPT.bool
+};
+
+export default Spacer;
